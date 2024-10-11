@@ -1,4 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+// const nextConfig = {
+//   images: {
+//     // supabase url 넣기
+//     domains: [""]
+//   }
+// };
 
-export default nextConfig;
+// module.exports = nextConfig;
