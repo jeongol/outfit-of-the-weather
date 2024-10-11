@@ -1,9 +1,13 @@
-import supabase from "@/utils/supabase";
+import MyLike from "@/components/MyLike";
+import MyPosts from "@/components/MyPosts";
 
 const page = async () => {
-  const { data: myPosts } = await supabase.from("post").select("*");
-  console.log(myPosts);
-  return <div>페이지</div>;
+  return (
+    <div>
+      <MyPosts />
+      <MyLike />
+    </div>
+  );
 };
 
 export default page;
