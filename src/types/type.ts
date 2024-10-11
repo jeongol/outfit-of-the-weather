@@ -1,5 +1,11 @@
-interface set {
-  id: string;
+export interface WeatherData {
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
+  name: string;
 }
-
-// 타입은 자유롭게
