@@ -1,18 +1,15 @@
-import { WeatherData } from "@/types/type";
+import { weatherData } from "@/types/weatherData";
 
-export const getWeather = async (city: string): Promise<WeatherData | null> => {
-  const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+export const getWeatherData = async (lat: number, lon: number): Promise<weatherData> => {
+  const API_KEY = process.env.NEXT_PUBLIC_WEATHER;
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+  );
 
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
-    }
-    const data: WeatherData = await response.json();
-    return data;
-  } catch (error) {
-    console.error("오류 발생", error);
-    return null;
+  if (!response.ok) {
+    throw new Error("Failed to fetch weather data");
   }
+
+  const data: weatherData = await response.json();
+  return data;
 };
