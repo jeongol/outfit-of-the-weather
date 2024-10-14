@@ -1,6 +1,6 @@
-import PostDetail from "@/components/post/PostDetail";
 import { getPost } from "@/utils/postApi";
 import { WriteTypes } from "@/types/write";
+import PostDetail from "./(components)/PostDetail";
 
 type Props = {
   params: {
@@ -8,7 +8,7 @@ type Props = {
   };
 };
 
-export default async function PostDetailPage({ params }: Props) {
+const PostDetailPage = async ({ params }: Props) => {
   const { id } = params;
 
   const data: WriteTypes | null = await getPost(id);
@@ -18,4 +18,6 @@ export default async function PostDetailPage({ params }: Props) {
   }
 
   return <PostDetail data={data} />;
-}
+};
+
+export default PostDetailPage;
