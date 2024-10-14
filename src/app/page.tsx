@@ -1,19 +1,26 @@
-import { getWeatherData } from "@/utils/weatherApi";
-import { weatherData } from "@/types/weatherData";
+"use client";
 
-const WeatherPage = async () => {
-  const lat = 37.5682; 
-  const lon = 126.9778; 
-  const weatherData: weatherData = await getWeatherData(lat, lon);
+import { useEffect } from "react";
+import { useWeatherStore } from "@/zustand/weatherstore";
+
+const WeatherComponent = () => {
+  const { lat, lon, weather, setLocation } = useWeatherStore();
+
+  useEffect(() => {
+    const lat = 37.5665;
+    const lon = 126.978;
+    setLocation(lat, lon);
+  }, [setLocation]);
+
+  if (!weather) return <div>날씨 데이터를 불러오는 중...</div>;
 
   return (
     <div>
-      <h1>Weather in {weatherData.name}</h1>
-      <p>{weatherData.weather[0].description}</p>
-      <p>Temperature: {weatherData.main.temp}°C</p>
-      <p>Feels Like: {weatherData.main.feels_like}°C</p>
+      <h3>도시: {weather.name}</h3>
+      <p>날씨: {weather.weather[0].main}</p>
+      <p>기온: {weather.main.temp}°C</p>
     </div>
   );
 };
 
-export default WeatherPage;
+export default WeatherComponent;
