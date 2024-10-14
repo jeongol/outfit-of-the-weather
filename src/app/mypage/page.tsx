@@ -2,11 +2,15 @@
 import LikeButton from "@/components/LikeButton";
 import MyLike from "@/components/MyLike";
 import MyPosts from "@/components/MyPosts";
+import { useUserStore } from "@/zustand/store";
 import { useState } from "react";
 
 const Page = () => {
   const [date, setDate] = useState<number[]>([new Date().getFullYear(), new Date().getMonth() + 1]);
   const [select, setSelect] = useState<select>("myPosts");
+
+  const userId = useUserStore((state) => state.user.userId);
+
   return (
     <div className="flex flex-col gap-10">
       <LikeButton />
@@ -38,7 +42,7 @@ const Page = () => {
         <button onClick={() => setSelect("myPosts")}>My Posts</button>
         <button onClick={() => setSelect("myLikes")}>My Likes</button>
       </div>
-      {select === "myPosts" ? <MyPosts date={date} /> : <MyLike />}
+      {select === "myPosts" ? <MyPosts date={date} userId={userId} /> : <MyLike userId={userId} />}
     </div>
   );
 };

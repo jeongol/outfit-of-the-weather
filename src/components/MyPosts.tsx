@@ -1,17 +1,32 @@
 import { post } from "@/types/post";
-import { getMyPosts } from "@/utils/myPageUtils";
+import browserClient from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 
-const MyPosts = ({ date }: { date: number[] }) => {
+const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
   const [myPosts, setMyPosts] = useState<post[]>([]);
 
+  // 내가 작성한 게시물 가져오기
+  const getMyPosts = async (id: string, date: number[]) => {
+    console.log(date);
+    const response = await browserClient
+      .from("post")
+      .select("*")
+      .eq("mem_no", id)
+      // .textSearch("post_date", String(date[0] + "-" + date[1] + "-*"))
+      .range(0, 9);
+    if (response.error) {
+      return [];
+    }
+    const myPosts: post[] = response.data || [];
+    return myPosts;
+  };
   const getPosts = async (id: string) => {
     const response = await getMyPosts(id, date);
     setMyPosts(response);
   };
   useEffect(() => {
-    getPosts("3a50ac73-449a-43fd-9b65-f9455841cc57");
-  }, []);
+    getPosts(userId);
+  }, [userId]);
   return (
     <div>
       <p>내 게시글</p>
