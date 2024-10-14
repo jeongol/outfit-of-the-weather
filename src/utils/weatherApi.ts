@@ -33,6 +33,7 @@ export const getWeatherData = async (lat: number, lon: number): Promise<weatherD
   const data: weatherData = await response.json();
 
   data.weather[0].main = weatherMainTranslations[data.weather[0].main] || data.weather[0].main;
+
   data.main.temp = Math.round(data.main.temp);
 
   return data;
