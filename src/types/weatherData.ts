@@ -3,12 +3,13 @@ export interface weatherData {
     lon: number; // 위도
     lat: number; // 걍도
   };
-  weather: {
-    id: number; // 날씨 상태 ID
-    main: string; // 날씨 상태 요약 설명 (맑음, 흐림, 비 등)
-    description: string; // 날씨 상태 자세한 설명
-    icon: string; // 날씨 상태 아이콘
-  }[];
+  weather:
+    | {
+        id: number; // 날씨 상태 ID
+        main: string; // 날씨 상태 요약 설명 (맑음, 흐림, 비 등)
+        description: string; // 날씨 상태 자세한 설명
+        icon: string; // 날씨 상태 아이콘
+      }[];
   base: string; // 데이터 수집 기준
   main: {
     temp: number; // 온도
