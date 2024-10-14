@@ -1,6 +1,6 @@
 "use client";
 
-import supabase from "@/utils/supabase";
+import supabase from "@/utils/supabase/client";
 import { useUserStore } from "@/zustand/store";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

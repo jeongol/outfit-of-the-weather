@@ -1,5 +1,5 @@
 "use client"; // 클라이언트 컴포넌트로 설정
-import supabase from "@/utils/supabase";
+import supabase from "@/utils/supabase/client";
 import React, { useState } from "react";
 
 const SignupPage = () => {
