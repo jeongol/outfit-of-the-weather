@@ -1,35 +1,30 @@
 import { post } from "@/types/post";
 import { getMyLikePosts } from "@/utils/myPageUtils";
 import { useEffect, useState } from "react";
+import ListCard from "./ListCard";
 
 const MyLike = () => {
   const [myLikes, setMyLikes] = useState<post[]>([]);
   useEffect(() => {
-    const getlike = async () => {
+    const geLikes = async () => {
       const response = await getMyLikePosts("d80cc064-7d51-4488-96cd-0ca145b81ebb");
       setMyLikes(response);
     };
-    getlike();
+    geLikes();
   }, []);
 
   return (
     <div>
-      <p>내 게시글</p>
-      {myLikes.length > 0 ? (
-        myLikes.map((myLike) => {
-          return (
-            <div key={myLike.post_id}>
-              <p>제목: {myLike.post_title}</p>
-              <p>조회수: {myLike.post_view}</p>
-              <p>날짜: {myLike.post_date}</p>
-              <p>내용: {myLike.post_content}</p>
-              <button className="bg-red-500 text-white">삭제</button>
-            </div>
-          );
-        })
-      ) : (
-        <p>데이터 없음</p>
-      )}
+      <p>내가 좋아요한 게시글</p>
+      <div className="grid grid-cols-4">
+        {myLikes.length > 0 ? (
+          myLikes.map((myLike) => {
+            return <ListCard key={myLike.post_id} post={myLike} />;
+          })
+        ) : (
+          <p>좋아요한 게시글이 없습니다</p>
+        )}
+      </div>
     </div>
   );
 };
