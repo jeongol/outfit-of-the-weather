@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useWeatherStore } from "@/zustand/weatherstore";
+import { useWeatherStore } from "@/zustand/weatherStore";
 
 const WeatherComponent = () => {
   const { lat, lon, weather, loading, setLocation } = useWeatherStore();
