@@ -5,7 +5,7 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputField: React.FC<Props> = ({ label, name, value, onChange }) => {
+const InputField = ({ label, name, value, onChange }: Props) => {
   return (
     <div className="flex flex-col">
       <span>{label}</span>
