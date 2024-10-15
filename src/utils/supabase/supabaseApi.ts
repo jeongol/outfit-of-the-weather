@@ -1,6 +1,7 @@
 "use server";
 import { createClient } from "./server";
 
+// 로그아웃 (supabase)
 export async function signOut() {
   try {
     const supabase = createClient();
