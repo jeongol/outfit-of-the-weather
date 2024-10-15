@@ -15,7 +15,7 @@ const Page = () => {
   const unSelectCSS = "text-5xl text-gray-300";
   return (
     <>
-      <MyPageHeader />
+      <MyPageHeader date={date} />
       <div className="flex flex-col gap-10 m-10">
         <div>
           <div className="flex flex-row gap-10 mb-10">
