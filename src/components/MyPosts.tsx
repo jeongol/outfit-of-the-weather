@@ -1,31 +1,33 @@
 "use client";
 import { post } from "@/types/post";
 import browserClient from "@/utils/supabase/client";
-import { useEffect, useState } from "react";
 import ListCard from "./ListCard";
+import { useQuery } from "@tanstack/react-query";
 
 const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
-  const [myPosts, setMyPosts] = useState<post[]>([]);
-
-  const getPosts = async (id: string) => {
-    const response = await getMyPosts(id);
-    setMyPosts(response);
-  };
-  useEffect(() => {
-    getPosts(userId);
-  }, [userId]);
+  const { data, isLoading } = useQuery({
+    queryKey: ["myPosts"],
+    queryFn: async () => {
+      const response = await getMyPosts(userId);
+      return response;
+    }
+  });
+  if (isLoading) {
+    return <div>Loading......</div>;
+  }
+  const posts = data ? data.filter((myPost) => myPost.post_date.includes(`${date[0]}-${date[1]}`)) : [];
   return (
-    <div className="grid grid-cols-4 gap-6 justify-center">
-      {myPosts.length > 0 ? (
-        myPosts
-          .filter((myPost) => myPost.post_date.includes(`${date[0]}-${date[1]}`))
-          .map((myPost) => {
+    <>
+      {posts.length > 0 ? (
+        <div className="grid grid-cols-4 gap-6 justify-center">
+          {posts.map((myPost) => {
             return <ListCard key={myPost.post_id} post={myPost} />;
-          })
+          })}
+        </div>
       ) : (
-        <p>작성한 글이 없습니다</p>
+        <p className="text-5xl">작성한 글이 없습니다</p>
       )}
-    </div>
+    </>
   );
 };
 
@@ -33,14 +35,10 @@ export default MyPosts;
 
 // 내가 작성한 게시물 가져오기
 const getMyPosts = async (id: string) => {
-  // console.log(String(date[0] + "-" + date[1]));
-  // console.log(`${date[0]}-${date[1]}`);
-  // const filteringDate = String(date[0] + "-" + date[1]);
-
   const response = await browserClient.from("post").select().eq("mem_no", id);
-  // .ilike("post_date", `%${filteringDate}%`);
   if (response.data) {
-    return response.data || [];
+    const result: post[] = response.data || [];
+    return result;
   } else {
     return [];
   }
