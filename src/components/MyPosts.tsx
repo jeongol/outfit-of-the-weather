@@ -1,3 +1,4 @@
+"use client";
 import { post } from "@/types/post";
 import browserClient from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
@@ -14,8 +15,7 @@ const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
     getPosts(userId);
   }, [userId]);
   return (
-    <div>
-      <p>내 게시글</p>
+    <div className="grid grid-cols-4 gap-6 justify-center">
       {myPosts.length > 0 ? (
         myPosts
           .filter((myPost) => myPost.post_date.includes(`${date[0]}-${date[1]}`))

@@ -1,3 +1,4 @@
+"use client";
 import { post } from "@/types/post";
 import { useEffect, useState } from "react";
 import ListCard from "./ListCard";
@@ -15,19 +16,16 @@ const MyLike = ({ userId, date }: { userId: string; date: number[] }) => {
   }, [userId]);
 
   return (
-    <div>
-      <p>내가 좋아요한 게시글</p>
-      <div className="grid grid-cols-4">
-        {myLikes.length > 0 ? (
-          myLikes
-            .filter((myPost) => myPost.post_date.includes(`${date[0]}-${date[1]}`))
-            .map((myLike) => {
-              return <ListCard key={myLike.post_id} post={myLike} />;
-            })
-        ) : (
-          <p>좋아요한 게시글이 없습니다</p>
-        )}
-      </div>
+    <div className="grid grid-cols-4 gap-6 justify-center">
+      {myLikes.length > 0 ? (
+        myLikes
+          .filter((myPost) => myPost.post_date.includes(`${date[0]}-${date[1]}`))
+          .map((myLike) => {
+            return <ListCard key={myLike.post_id} post={myLike} />;
+          })
+      ) : (
+        <p>좋아요한 게시글이 없습니다</p>
+      )}
     </div>
   );
 };
