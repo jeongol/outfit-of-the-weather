@@ -27,7 +27,9 @@ const LoginPage = () => {
         userId: data.user.id,
         isAuthenticated: true
       });
+
       console.log("로그인이 완료되었습니다");
+
       router.push("/");
     } else {
       console.error("Email이 존재하지 않습니다.");

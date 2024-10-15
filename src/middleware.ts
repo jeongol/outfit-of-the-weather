@@ -48,3 +48,11 @@ export const updateSession = async (request: NextRequest) => {
     });
   }
 };
+
+export function middleware(request: NextRequest) {
+  return NextResponse.redirect(new URL("/mypage", request.url));
+}
+
+export const config = {
+  matcher: "/list"
+};

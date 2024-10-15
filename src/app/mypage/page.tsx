@@ -13,7 +13,7 @@ const Page = () => {
 
   return (
     <div className="flex flex-col gap-10">
-      <LikeButton />
+      <LikeButton postId={"22ffb318-cf1a-4b62-8a28-edd7f271bc01"} />
       <div>
         <select
           name="년도"
@@ -42,7 +42,7 @@ const Page = () => {
         <button onClick={() => setSelect("myPosts")}>My Posts</button>
         <button onClick={() => setSelect("myLikes")}>My Likes</button>
       </div>
-      {select === "myPosts" ? <MyPosts date={date} userId={userId} /> : <MyLike userId={userId} />}
+      {select === "myPosts" ? <MyPosts date={date} userId={userId} /> : <MyLike date={date} userId={userId} />}
     </div>
   );
 };
