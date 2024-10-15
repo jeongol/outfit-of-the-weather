@@ -34,7 +34,7 @@ const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
 export default MyPosts;
 
 // 내가 작성한 게시물 가져오기
-const getMyPosts = async (id: string) => {
+export const getMyPosts = async (id: string) => {
   const response = await browserClient.from("post").select().eq("mem_no", id);
   if (response.data) {
     const result: post[] = response.data || [];
