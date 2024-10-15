@@ -1,4 +1,5 @@
 "use client";
+import { signOut } from "@/utils/supabase/supabaseApi";
 import { useUserStore } from "@/zustand/store";
 import Link from "next/link";
 import React from "react";
@@ -9,6 +10,7 @@ const Header = () => {
   const handleLogout = () => {
     if (user.isAuthenticated) {
       logoutUser();
+      signOut();
       console.log("로그아웃 되었습니다.");
     }
   };
