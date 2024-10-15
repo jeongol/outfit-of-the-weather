@@ -25,7 +25,7 @@ const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
           })}
         </div>
       ) : (
-        <p className="text-5xl">작성한 글이 없습니다</p>
+        <p className="text-2xl">작성한 글이 없습니다</p>
       )}
     </>
   );
@@ -35,7 +35,7 @@ export default MyPosts;
 
 // 내가 작성한 게시물 가져오기
 export const getMyPosts = async (id: string) => {
-  const response = await browserClient.from("post").select().eq("mem_no", id);
+  const response = await browserClient.from("post").select("*").eq("mem_no", id);
   if (response.data) {
     const result: post[] = response.data || [];
     return result;
