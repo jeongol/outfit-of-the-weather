@@ -14,7 +14,7 @@ export default function Weatherpages() {
     const lat = 37.5665;
     const lon = 126.978;
     setLocation(lat, lon);
-  }, []);
+  }, [setLocation]);
 
   const fetchPosts = async () => {
     const response = await browserClient.from("post").select("*");
@@ -40,8 +40,8 @@ export default function Weatherpages() {
       <div>
         <h3>지역: {weather.name}</h3>
         <p>날씨: {weather.weather[0].main}</p>
-        <Image
-          src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+        <img
+          src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
           alt="날씨 이미지"
           width={80}
           height={80}

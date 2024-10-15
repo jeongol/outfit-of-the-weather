@@ -1,6 +1,5 @@
 import { ImageType, WriteTypes } from "@/types/write";
 import React, { useRef } from "react";
-import Image from "next/image";
 
 interface Props {
   imageState: ImageType;
@@ -36,9 +35,9 @@ const ImageUploader = ({ imageState, setImageState, setFormData }: Props) => {
   };
   return (
     <div className="border cursor-pointer" onClick={handlePreviewClick}>
-      <div className="w-[200px] h-full rounded">
+      <div className="w-[200px] h-[full] rounded">
         {imageState.prevImage ? (
-          <Image className="w-full h-full object-cover" src={imageState.prevImage} alt="업로드 이미지" />
+          <img className="w-full h-full object-cover" src={imageState.prevImage} alt="업로드 이미지" />
         ) : (
           <div className="m-0">사진을 추가하세요</div>
         )}

@@ -1,4 +1,5 @@
 import { WriteTypes } from "@/types/write";
+import Image from "next/image";
 import { Suspense } from "react";
 
 type Props = {
@@ -15,6 +16,13 @@ const PostDetail = ({ data }: Props) => {
             <p>{data.temperature}도</p>
             <p>{data.post_weather}</p>
           </div>
+          <Image
+            src={data.post_img || "/path/to/default/image.jpg"} // 기본 이미지 경로
+            width={300}
+            height={300}
+            alt="상세보기 이미지"
+            priority
+          />
           <h1>{data.post_title}</h1>
           <p>{data.post_content}</p>
           <ul className="flex flex-row gap-2">
