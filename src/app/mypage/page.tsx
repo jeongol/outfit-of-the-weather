@@ -1,5 +1,5 @@
 "use client";
-import LikeButton from "@/components/LikeButton";
+import LikeButton  from "@/components/LikeButton";
 import MyLike from "@/components/MyLike";
 import MyPosts from "@/components/MyPosts";
 import { useUserStore } from "@/zustand/store";
