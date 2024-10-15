@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 // UserData 타입 정의
 interface UserData {
@@ -46,7 +46,7 @@ export const useUserStore = create<UserState>()(
         }))
     }),
     {
-      name: "userInfo",
+      name: "userInfo"
     }
   )
 );

@@ -1,6 +1,6 @@
 "use server";
+import { getMyLikePostIds } from "@/components/LikeButton";
 import supabase from "@/utils/supabase/client";
-import { getMyLikePostIds } from "./myPageUtils";
 
 // 게시물 스크랩하기
 export const postMyLikePost = async (userId: string, postId: string) => {

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useWeatherStore } from "@/zustand/weatherStore";
 
 const WeatherComponent = () => {
-  const { lat, lon, weather, loading, setLocation } = useWeatherStore();
+  const { weather, loading, setLocation } = useWeatherStore();
 
   useEffect(() => {
     const lat = 37.5665;
@@ -12,15 +12,7 @@ const WeatherComponent = () => {
     setLocation(lat, lon);
   }, [setLocation]);
 
-  if (weather === null)
-    return (
-      <>
-        <h3>지역: 알 수 없는 지역</h3>
-        <p>날씨: 정보 없음</p>
-        <p>기온: 0°C</p>
-      </>
-    );
-
+  console.log(weather);
   return (
     <div>
       {loading ? (
