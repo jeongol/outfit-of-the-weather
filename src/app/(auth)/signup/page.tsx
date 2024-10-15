@@ -1,5 +1,5 @@
 "use client"; // 클라이언트 컴포넌트로 설정
-import supabase from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 import React, { useState } from "react";
 
 const SignupPage = () => {
@@ -7,6 +7,8 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [nickname, setNickname] = useState("");
+
+  const supabase = createClient();
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

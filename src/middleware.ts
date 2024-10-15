@@ -1,58 +1,31 @@
-import { createServerClient } from "@supabase/ssr";
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { updateSession } from "./utils/supabase/middleware";
+import { createClient } from "./utils/supabase/server";
 
-export const updateSession = async (request: NextRequest) => {
-  // This `try/catch` block is only here for the interactive tutorial.
-  // Feel free to remove once you have Supabase connected.
-  try {
-    // Create an unmodified response
-    let response = NextResponse.next({
-      request: {
-        headers: request.headers
-      }
-    });
+export async function middleware(request: NextRequest) {
+  await updateSession(request);
 
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() {
-            return request.cookies.getAll();
-          },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-            response = NextResponse.next({
-              request
-            });
-            cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
-          }
-        }
-      }
-    );
+  const serverClient = createClient();
 
-    // This will refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/server-side/nextjs
-    await supabase.auth.getUser();
+  const {
+    data: { user }
+  } = await serverClient.auth.getUser();
 
-    return response;
-  } catch (e) {
-    // If you are here, a Supabase client could not be created!
-    // This is likely because you have not set up environment variables.
-    // Check out http://localhost:3000 for Next Steps.
-    console.log(e);
-    return NextResponse.next({
-      request: {
-        headers: request.headers
-      }
-    });
+  const isLogin = !!user;
+
+  if (!isLogin && request.nextUrl.pathname.startsWith("/mypage")) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
-};
 
-export function middleware(request: NextRequest) {
-  return NextResponse.redirect(new URL("/mypage", request.url));
+  if (isLogin && (request.nextUrl.pathname.startsWith("/login") || request.nextUrl.pathname.startsWith("/signup"))) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  return NextResponse.next();
 }
 
+/** 어떤 페이지에서 이 미들웨어를 실행할거니 */
 export const config = {
-  matcher: "/list"
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"]
 };
