@@ -21,6 +21,7 @@ const LoginPage = () => {
       password: password
     });
 
+    console.log(data);
     if (data.user && data.user.email) {
       useUserStore.getState().loginUser({
         email: data.user.email,
