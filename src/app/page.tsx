@@ -6,7 +6,7 @@ import { post } from "@/types/post";
 import ListCard from "@/components/ListCard";
 import Image from "next/image";
 
-export default function Weatherpages() {
+export default function Mainpages() {
   const { weather, setLocation } = useWeatherStore();
   const [posts, setPosts] = useState<post[] | null>([]);
 
@@ -33,9 +33,7 @@ export default function Weatherpages() {
     setPosts(data);
   };
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  fetchPosts();
   if (!posts) {
     return <div>데이터 없음</div>;
   }
@@ -53,11 +51,9 @@ export default function Weatherpages() {
         />
         <p>기온: {weather.main.temp}°C</p>
       </div>
+      <div>오늘의 체감온도는 {weather.main.feels_like}°C 입니다. </div>
       <div>
-        오늘의 날씨는 최고 {weather.main.temp_max}°C 최저 {weather.main.temp_min} °C 입니다
-      </div>
-      <div>
-        <h2>오늘 다른사람들이 입은 옷차림을 보여줄게요</h2>
+        <h2>오늘 다른사람들이 입은 옷차림을 보여줄게요.</h2>
         {posts.length > 0 ? (
           posts?.map((post) => <ListCard key={post.post_id} post={post} />)
         ) : (

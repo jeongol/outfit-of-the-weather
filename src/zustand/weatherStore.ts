@@ -29,7 +29,8 @@ export const useWeatherStore = create<WeatherState>((set, get) => ({
     main: {
       temp: 0,
       temp_min: 0,
-      temp_max: 0
+      temp_max: 0,
+      feels_like: 0
     },
     name: ""
   },
@@ -60,7 +61,8 @@ export const useWeatherStore = create<WeatherState>((set, get) => ({
           main: {
             temp: weatherData.main.temp,
             temp_min: weatherData.main.temp_min,
-            temp_max: weatherData.main.temp_max
+            temp_max: weatherData.main.temp_max,
+            feels_like: weatherData.main.feels_like
           },
           name: weatherData.name
         },

@@ -14,6 +14,7 @@ export interface weatherData {
     temp: number; // 온도
     temp_min: number; // 최저 기온
     temp_max: number; // 최고 기온
+    feels_like: number; // 체감 온도
   };
   name: string; // 도시 이름
 }
