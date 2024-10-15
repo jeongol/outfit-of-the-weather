@@ -2,13 +2,16 @@
 import { ImageType, WriteTypes } from "@/types/write";
 import { addPost, uploadImage } from "@/utils/postApi";
 // import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImageUploader from "./(components)/ImageUploader";
 import Category from "./(components)/Category";
 import InputField from "./(components)/InputField";
+import { useWeatherStore } from "@/zustand/weatherStore";
+import { getWeatherData } from "@/utils/weatherApi";
 
 const page = () => {
   // 상태
+  const { weather, loading, setLocation } = useWeatherStore();
   const [categoryInput, setCategoryInput] = useState<string>("");
   const [formData, setFormData] = useState<Omit<WriteTypes, "fileInputRef">>({
     post_title: "",
@@ -23,6 +26,25 @@ const page = () => {
     prevImage: "",
     imageFile: null
   });
+
+  useEffect(() => {
+    const handleGetWeather = async () => {
+      const lat = 37.5665;
+      const lon = 126.978;
+      const response = await getWeatherData(lat, lon);
+
+      setFormData((prev) => ({
+        ...prev,
+        temperature: response?.main.temp || 0,
+        post_weather: response?.weather[0].main || "정보 없음"
+      }));
+
+      console.log(response);
+      return response;
+    };
+
+    handleGetWeather();
+  }, []);
 
   // 게시글 추가
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
