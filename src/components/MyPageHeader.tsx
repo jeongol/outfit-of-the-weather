@@ -10,6 +10,9 @@ import Image from "next/image";
 const MyPageHeader = ({ date }: { date: number[] }) => {
   const [myNickname, setMyNickname] = useState<string>("");
   const userId = useUserStore((state) => state.user.userId);
+  const user = useUserStore((state) => state.user);
+  console.log(user);
+
   useEffect(() => {
     const getMyInfo = async () => {
       const { data } = await browserClient.from("member").select("mem_nickname").eq("mem_no", userId);
