@@ -30,7 +30,17 @@ const LikeButton = ({ postId }: { postId: string }) => {
     }
   };
 
-  return <button onClick={() => postMyLikePost(userId, postId)}>{isLike ? "좋아요 X" : "좋아요"}</button>;
+  return (
+    <button
+      className="absolute top-1 right-1 text-3xl px-2 border-solid border-2 border-red-300 rounded-xl"
+      onClick={(e) => {
+        e.preventDefault();
+        postMyLikePost(userId, postId);
+      }}
+    >
+      {isLike ? "♥" : "♡"}
+    </button>
+  );
 };
 
 export default LikeButton;
