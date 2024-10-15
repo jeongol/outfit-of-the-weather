@@ -40,7 +40,7 @@ export default function Mainpages() {
   return (
     <div>
       <div>
-        <h3>지역: {weather.name}</h3>
+        <h3 className="">지역: {weather.name}</h3>
         <p>날씨: {weather.weather[0].main}</p>
         <Image
           src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
