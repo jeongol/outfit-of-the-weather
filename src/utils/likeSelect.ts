@@ -26,8 +26,7 @@ export const postMyLikePost = async (userId: string, postId: string) => {
   // const respon = await supabase
   //   .from("like")
   //   .update({ post_id: [...myLikePostIds, postId] })
-  //   .eq("mem_no", userId)
-  //   .select();
+  //   .eq("mem_no", userId);
 
   // if (respon.error) {
   //   console.log(respon.error);
