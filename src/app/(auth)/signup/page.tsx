@@ -1,11 +1,14 @@
 "use client"; // 클라이언트 컴포넌트로 설정
-import supabase from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 import React, { useState } from "react";
 
 const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [nickname, setNickname] = useState("");
+
+  const supabase = createClient();
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,6 +22,10 @@ const SignupPage = () => {
         }
       }
     });
+
+    if (!email || !password || !passwordCheck || !nickname) return alert("빈 값이 없도록 해주세요");
+
+    if (password !== passwordCheck) return alert("비밀번호가 일치하지 않습니다");
 
     if (error) {
       console.error("Error:", error.message);
@@ -50,7 +57,17 @@ const SignupPage = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
+              // required
+              className="text-black"
+            />
+          </label>
+          <label>
+            비밀번호 확인:
+            <input
+              type="password"
+              value={passwordCheck}
+              onChange={(e) => setPasswordCheck(e.target.value)}
+              // required
               className="text-black"
             />
           </label>
@@ -62,7 +79,7 @@ const SignupPage = () => {
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              required
+              // required
               className="text-black"
             />
           </label>
