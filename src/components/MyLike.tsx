@@ -1,32 +1,35 @@
 "use client";
 import { post } from "@/types/post";
-import { useEffect, useState } from "react";
 import ListCard from "./ListCard";
 import browserClient from "@/utils/supabase/client";
 import { getMyLikePostIds } from "./LikeButton";
+import { useQuery } from "@tanstack/react-query";
 
 const MyLike = ({ userId, date }: { userId: string; date: number[] }) => {
-  const [myLikes, setMyLikes] = useState<post[]>([]);
-  useEffect(() => {
-    const geLikes = async () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["myLikes"],
+    queryFn: async () => {
       const response = await getMyLikePosts(userId);
-      setMyLikes(response);
-    };
-    geLikes();
-  }, [userId]);
+      return response;
+    }
+  });
+  if (isLoading) {
+    return <div>Loading......</div>;
+  }
+  const posts = data ? data.filter((myPost) => myPost.post_date.includes(`${date[0]}-${date[1]}`)) : [];
 
   return (
-    <div className="grid grid-cols-4 gap-6 justify-center">
-      {myLikes.length > 0 ? (
-        myLikes
-          .filter((myPost) => myPost.post_date.includes(`${date[0]}-${date[1]}`))
-          .map((myLike) => {
+    <>
+      {posts.length > 0 ? (
+        <div className="grid grid-cols-4 gap-6 justify-center">
+          {posts.map((myLike) => {
             return <ListCard key={myLike.post_id} post={myLike} />;
-          })
+          })}
+        </div>
       ) : (
-        <p>좋아요한 게시글이 없습니다</p>
+        <p className="text-5xl">좋아요한 게시글이 없습니다</p>
       )}
-    </div>
+    </>
   );
 };
 
