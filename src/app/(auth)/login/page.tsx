@@ -29,10 +29,6 @@ const LoginPage = () => {
 
       console.log("로그인이 완료되었습니다");
 
-      document.cookie = `accessToken=${data.session.access_token}; path=/; max-age=${
-        60 * 60 * 24
-      }; secure; SameSite=Strict`;
-
       router.push("/");
     } else {
       console.error("Email이 존재하지 않습니다.");
