@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
+    domains: ["openweathermap.org"],
     remotePatterns: [
       {
         protocol: "https",
