@@ -1,14 +1,15 @@
 "use client";
 import { ImageType, WriteTypes } from "@/types/write";
 import { addPost, uploadImage } from "@/utils/postApi";
-// import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImageUploader from "./(components)/ImageUploader";
 import Category from "./(components)/Category";
 import InputField from "./(components)/InputField";
+import { useWeatherStore } from "@/zustand/weatherStore";
 
-const page = () => {
+const Page = () => {
   // 상태
+  const { weather, loading, setLocation } = useWeatherStore();
   const [categoryInput, setCategoryInput] = useState<string>("");
   const [formData, setFormData] = useState<Omit<WriteTypes, "fileInputRef">>({
     post_title: "",
@@ -23,6 +24,26 @@ const page = () => {
     prevImage: "",
     imageFile: null
   });
+
+  useEffect(() => {
+    const lat = 37.5665;
+    const lon = 126.978;
+
+    const handleGetWeather = () => {
+      if (weather.weather[0].main === "") {
+        setLocation(lat, lon);
+      }
+
+      if (!loading && weather.coord.lat !== 0) {
+        setFormData((prev) => ({
+          ...prev,
+          temperature: weather.main.temp || 0,
+          post_weather: weather.weather[0].main || "정보 없음"
+        }));
+      }
+    };
+    handleGetWeather();
+  }, [weather, loading, setLocation]);
 
   // 게시글 추가
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,14 +86,22 @@ const page = () => {
     }
   };
 
+  console.log(formData);
   // 폼 데이터 값 변경하는 함수
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if (name === "post_category") {
-      const tagsArray = value.split("#").map((tag) => tag.trim());
-      setFormData((prev) => ({ ...prev, [name]: tagsArray }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+
+    switch (name) {
+      case "post_category":
+        const tagsArray = value.split("#").map((tag) => tag.trim());
+        setFormData((prev) => ({ ...prev, [name]: tagsArray }));
+        break;
+      case "post_weather":
+        setFormData((prev) => ({ ...prev, post_weather: e.target.value }));
+        break;
+      default:
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        break;
     }
   };
 
@@ -82,18 +111,30 @@ const page = () => {
       <form className="flex flex-row" onSubmit={(e) => handleAddPost(e)}>
         <ImageUploader imageState={imageState} setImageState={setImageState} setFormData={setFormData} />
         <div>
-          <InputField label="제목" name="post_title" value={formData.post_title} onChange={handleChange} />
+          <InputField type="input" label="제목" name="post_title" value={formData.post_title} onChange={handleChange} />
           <div className="flex flex-row">
-            <InputField label="온도" name="temperature" value={formData.temperature} onChange={handleChange} />
-            <InputField label="날씨" name="post_weather" value={formData.post_weather} onChange={handleChange} />
+            <InputField
+              type="number"
+              label="온도"
+              name="temperature"
+              value={formData.temperature}
+              onChange={handleChange}
+            />
+            <InputField
+              type="select"
+              label="날씨"
+              name="post_weather"
+              value={formData.post_weather}
+              onChange={handleChange}
+            />
           </div>
           <div className="flex flex-col">
-            <span>내용</span>
-            <textarea
-              className="border"
+            <InputField
+              type="textarea"
+              label="내용"
               name="post_content"
               value={formData.post_content}
-              onChange={(e) => setFormData((prev) => ({ ...prev, post_content: e.target.value }))}
+              onChange={handleChange}
             />
           </div>
           <Category
@@ -109,4 +150,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
