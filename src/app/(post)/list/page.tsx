@@ -125,7 +125,7 @@ const Page: React.FC = () => {
                 key={weather}
                 className={`w-[80px] h-[30px] text-[14px] font-medium rounded transition-all duration-300 ease-in-out ${
                   selectedWeather.includes(weather)
-                    ? "bg-blue-500 text-white shadow-lg transform scale-105"
+                    ? "bg-subOrange text-white shadow-lg transform scale-105"
                     : "bg-gray-200 text-black hover:bg-gray-300"
                 }`}
                 onClick={() => handleToggleWeather(weather)}
@@ -138,11 +138,11 @@ const Page: React.FC = () => {
       </div>
 
       <div>
-        <div className="flex mt-20 flex-row justify-between ">
+        <div className="flex mt-20 flex-row justify-between">
           <div className="flex text-[20px] font-bold mb-4">오늘의 OOTW 둘러보기</div>
         </div>
         <div className="bg-white rounded-lg shadow-xl max-w-[1280px] mx-auto mb-20">
-          <div className="flex flex-wrap gap-4 py-10 pl-10">
+          <div className="flex flex-wrap gap-4 py-10 pl-10 min-h-[400px]">
             {data.length > 0 ? (
               data.map((post) => {
                 return (
