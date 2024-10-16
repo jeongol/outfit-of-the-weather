@@ -25,6 +25,8 @@ const PostDetail = ({ data, nickname }: Props) => {
   const { resetForm } = useWriteStore();
   const deletePostMutation = useDeletePost();
 
+  const userId = useUserStore((state) => state.user.userId);
+
   const handleOpenMenu = async () => {
     if (user.userId === data.mem_no) {
       setModalOpen(true);
@@ -103,9 +105,15 @@ const PostDetail = ({ data, nickname }: Props) => {
             className="block w-[900px] h-auto"
           />
         </div>
-        <div className="flex justify-center mt-4">
-          <LikeButton postId={data.post_id} />
-        </div>
+
+        {userId ? (
+          <div className="flex justify-center mt-4">
+            <LikeButton postId={data.post_id} />
+          </div>
+        ) : (
+          <></>
+        )}
+
         <h2 className="text-[30px] font-bold mt-10">{data.post_title}</h2>
         <p className="text-[20px] pl-1 text-gray-700 mb-12">{data.post_content}</p>
         <div className="flex flex-col mb-10">
