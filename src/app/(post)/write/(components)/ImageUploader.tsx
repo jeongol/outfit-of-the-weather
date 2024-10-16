@@ -1,5 +1,4 @@
 import { ImageType, WriteTypes } from "@/types/write";
-import Image from "next/image";
 import React, { useRef } from "react";
 import { setImageHandler, triggerImageInputClick } from "@/utils/postHandlers";
 

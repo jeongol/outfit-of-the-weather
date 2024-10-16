@@ -7,6 +7,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "tmqkkrunjxxrrlkjxkqq.supabase.co",
         pathname: "/**"
+      },
+      {
+        protocol: "http",
+        hostname: "openweathermap.org",
+        pathname: "/**"
       }
     ],
     formats: ["image/avif", "image/webp"]

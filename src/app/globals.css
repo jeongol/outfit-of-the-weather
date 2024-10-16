@@ -26,3 +26,9 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .signInput {
+    @apply w-96 text-black p-2 rounded-md;
+  }
+}
