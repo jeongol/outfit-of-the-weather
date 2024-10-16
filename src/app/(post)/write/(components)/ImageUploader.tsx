@@ -1,6 +1,7 @@
 import { ImageType, WriteTypes } from "@/types/write";
 import React, { useRef } from "react";
 import { setImageHandler, triggerImageInputClick } from "@/utils/postHandlers";
+import Image from "next/image";
 
 interface Props {
   imageState: ImageType;
