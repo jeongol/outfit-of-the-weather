@@ -8,16 +8,19 @@ export const addPostHandler = async (
   e: React.FormEvent<HTMLFormElement>,
   formData: Omit<WriteTypes, "fileInputRef">,
   imageState: ImageType,
-  user: UserData
+  user: UserData,
+  resetForm: () => void
 ) => {
   e.preventDefault();
 
   try {
-    if (formData.post_title.length === 0 || formData.post_title === "") {
-      return alert("제목을 입력해주세요");
-    } else if (formData.post_content.length === 0 || formData.post_content === "") {
-      return alert("내용을 입력해주세요");
-    }
+    // if (formData.post_title.length === 0 || formData.post_title === "") {
+    //   return alert("제목을 입력해주세요");
+    // } else if (formData.post_content.length === 0 || formData.post_content === "") {
+    //   return alert("내용을 입력해주세요");
+    // } else if (formData.post_img.length === 0 || formData.post_img === "") {
+    //   return alert("이미지를 업로드해주세요.");
+    // }
 
     if (imageState.imageFile) {
       await uploadImage(imageState);
@@ -28,8 +31,8 @@ export const addPostHandler = async (
       post_date: new Date(),
       mem_no: user.userId
     };
-
     await addPost(postData);
+    resetForm();
   } catch (error) {
     console.log("글 작성 에러:", error);
   }
