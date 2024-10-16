@@ -12,9 +12,8 @@ interface WeatherState {
 }
 
 export const useWeatherStore = create<WeatherState>((set, get) => ({
-  lat: null, //안씀
-  lon: null, //안씀
-
+  lat: null,
+  lon: null,
   weather: {
     coord: {
       lon: 0,
@@ -28,12 +27,14 @@ export const useWeatherStore = create<WeatherState>((set, get) => ({
       }
     ],
     main: {
-      temp: 0
+      temp: 0,
+      temp_min: 0,
+      temp_max: 0,
+      feels_like: 0
     },
     name: ""
   },
-
-  loading: false, // ->
+  loading: false,
 
   setLocation: (lat, lon) => {
     set({ lat, lon, loading: true });
@@ -58,7 +59,10 @@ export const useWeatherStore = create<WeatherState>((set, get) => ({
             }
           ],
           main: {
-            temp: weatherData.main.temp
+            temp: weatherData.main.temp,
+            temp_min: weatherData.main.temp_min,
+            temp_max: weatherData.main.temp_max,
+            feels_like: weatherData.main.feels_like
           },
           name: weatherData.name
         },
