@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 // UserData 타입 정의
-interface UserData {
+export interface UserData {
   email: string;
   accessToken: string;
   userId: string;
