@@ -38,6 +38,7 @@ export default function Mainpages() {
     navigator.geolocation.getCurrentPosition(geoloat, headleError);
   }, [setLocation]);
 
+
   if (!posts) {
     return <div>데이터 없음</div>;
   }
@@ -49,8 +50,19 @@ export default function Mainpages() {
     <>
       <div className="flex flex-col justify-center items-center">
         <div className=" mt-10 flex flex-col items-center mb-5">
-          <div className="text-[20px]">{user.email}님, 안녕하세요</div>
-          <div className="text-[20px]">오늘의 OOTW는 어떤가요?</div>
+          {user.email ? (
+            <>
+              <div className="text-[20px]">{user.email}님, 안녕하세요</div>
+              <div className="text-[20px]">오늘의 OOTW는 어떤가요?</div>
+            </>
+          ) : (
+            <>
+              <div className="text-[20px]">로그인 후 OOTW를 자랑해주세요</div>
+              <Link href={"/login"} className="text-[16px] underline">
+                로그인 하러하기
+              </Link>
+            </>
+          )}
         </div>
         <div className="bg-white w-[600px] rounded-xl shadow-xl">
           <div className=" flex flex-row items-start text-left">
@@ -77,7 +89,7 @@ export default function Mainpages() {
           <div className="flex  text-[20px] font-bold mb-4">오늘의 OOTW 둘러보기</div>
           <Link href={"/list"}> 바로가기 &gt; </Link>
         </div>
-        <div className="bg-white rounded-lg shadow-xl">
+        <div className="bg-white rounded-lg shadow-xl mb-20">
           <div className="w-[1280px] flex flex-row gap-8 overflow-x-scroll py-10 pl-10 scrollbar-default">
             {filteredData.length > 0 ? (
               filteredData.map((post) => <ListCard key={post.post_id} post={post} />)

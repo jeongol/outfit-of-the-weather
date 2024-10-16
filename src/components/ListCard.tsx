@@ -12,7 +12,7 @@ const ListCard = ({ post }: { post: post }) => {
       <div className="flex text-black">
         <Link
           href={`/list/${post.post_id}`}
-          className="relative w-[250px] h-[400px] bg-white rounded-lg overflow-hidden justify-center items-center shadow-xl transition-transform duration-300 hover:scale-105"
+          className="relative w-[280px] h-[400px] bg-white rounded-lg overflow-hidden justify-center items-center shadow-xl transition-transform duration-300 hover:scale-105"
         >
           <div className="relative w-full h-[330px]">
             <Image src={post.post_img} layout="fill" objectFit="cover" alt={post.post_title} />
@@ -22,10 +22,16 @@ const ListCard = ({ post }: { post: post }) => {
             <div>{post.post_weather}</div>
           </div>
           <div className="p-3 pl-5">
-            <div className="text-[14px] text-gray-500">{post.post_date}</div>
+            <div className="text-[14px] text-gray-500">{post.post_date.slice(0, 10)}</div>
             <div className="text-[16px] font-bold">{post.post_title}</div>
           </div>
-          {userId ? <LikeButton postId={post.post_id} /> : <></>}
+          {userId ? (
+            <div className="absolute bottom-4 right-3">
+              <LikeButton postId={post.post_id} />
+            </div>
+          ) : (
+            <></>
+          )}
         </Link>
       </div>
     </>

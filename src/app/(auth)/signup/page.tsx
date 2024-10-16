@@ -146,7 +146,7 @@ const SignupPage = () => {
           </label>
           {errors.nickname ? <p className="signInputError">{errors.nickname}</p> : <p className="signInputError"> </p>}
         </div>
-        <button type="submit" className="bg-blue-500 p-3 pl-5 rounded-xl mt-5">
+        <button type="submit" className="bg-subOrange text-white p-3 pl-5 rounded-xl mt-5">
           회원가입
         </button>
       </form>

@@ -12,7 +12,8 @@ const MyLike = ({ userId, date }: { userId: string; date: number[] }) => {
       const response = await getMyLikePosts(userId);
       return response;
     },
-    enabled: !!userId
+    enabled: !!userId,
+    staleTime: 0
   });
   if (isLoading) {
     return <div>Loading......</div>;
@@ -22,13 +23,15 @@ const MyLike = ({ userId, date }: { userId: string; date: number[] }) => {
   return (
     <>
       {posts.length > 0 ? (
-        <div className="grid grid-cols-4 gap-6 justify-center">
-          {posts.map((myLike) => {
-            return <ListCard key={myLike.post_id} post={myLike} />;
-          })}
+        <div className="bg-white rounded-lg shadow-xl max-w-[1280px] mx-auto mb-20 px-6">
+          <div className="grid grid-cols-4 gap-4 py-6 min-h-[400px]">
+            {posts.map((myLike) => {
+              return <ListCard key={myLike.post_id} post={myLike} />;
+            })}
+          </div>
         </div>
       ) : (
-        <p className="text-2xl">좋아요한 게시글이 없습니다</p>
+        <p className="text-2xl text-center mx-auto mb-20 px-6">좋아요한 게시글이 없습니다</p>
       )}
     </>
   );

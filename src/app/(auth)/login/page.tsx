@@ -66,13 +66,13 @@ const LoginPage = () => {
             />
           </label>
         </div>
-        <button type="submit" className="bg-blue-500 p-3 pl-5 rounded-xl mt-5">
+        <button type="submit" className="bg-subOrange text-white p-3 pl-5 rounded-xl mt-5">
           로그인
         </button>
       </form>
       <div>
         <div>아직 회원이 아니신가요?</div>
-        <Link className="text-red-200 font-semibold" href={"/signup"}>
+        <Link className="text-subOrange font-semibold" href={"/signup"}>
           회원가입 하러가기 →
         </Link>
       </div>
