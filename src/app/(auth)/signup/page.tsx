@@ -34,6 +34,7 @@ const SignupPage = () => {
     } else {
       console.log("회원가입 성공!", data);
       alert("회원가입 성공!");
+      await supabase.auth.signOut();
       router.push("/login");
     }
   };
