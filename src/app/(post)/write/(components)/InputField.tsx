@@ -24,11 +24,11 @@ const InputField = ({ type, label, name, value, onChange, isDisabled }: Props) =
         value={value}
         onChange={onChange}
         type="number"
-        min="-50"
-        max="50"
+        min="-40"
+        max="40"
         disabled={isDisabled}
       />
-      <input type="range" min="-50" max="50" name={name} value={value} onChange={onChange} disabled={isDisabled} />
+      <input type="range" min="-40" max="40" name={name} value={value} onChange={onChange} disabled={isDisabled} />
     </div>
   ) : type === "select" ? (
     <div>
