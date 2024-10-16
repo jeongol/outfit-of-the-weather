@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "normalize.css";
 import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "@/components/providers/RQProvider";
@@ -27,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} w-full flex flex-col items-center bg-blue-500`}>
         <Header />
         <Providers>{children}</Providers>
       </body>
