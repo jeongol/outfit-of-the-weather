@@ -29,7 +29,7 @@ const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
           </div>
         </div>
       ) : (
-        <p className="text-2xl text-center">작성한 글이 없습니다</p>
+        <p className="text-2xl text-center mx-auto mb-20 px-6">작성한 글이 없습니다</p>
       )}
     </>
   );

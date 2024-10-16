@@ -56,7 +56,7 @@ const PostDetail = ({ data, nickname }: Props) => {
           <DateAndTime createDate={data.post_date} />
           <div className="flex flex-row w-300 h-300 items-center">
             <div className="flex flex-row items-center">
-              <LikeButton postId={data.post_id} />
+              {user.userId ? <LikeButton postId={data.post_id} /> : <></>}
               <div className="w-[30px] h-[30px] bg-gray-300 rounded-full flex items-center justify-center">
                 <Image
                   src="https://tmqkkrunjxxrrlkjxkqq.supabase.co/storage/v1/object/public/post/post_1725217634166"

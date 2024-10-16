@@ -1,9 +1,8 @@
 "use client";
 import { getMyPosts } from "./MyPosts";
-import Image from "next/image";
 
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
+import ListCard from "./ListCard";
 
 const MyOneYearAgo = ({ date, userId }: { date: number[]; userId: string }) => {
   // 1년 전 이 달의 게시물 4개 가져오기
@@ -27,13 +26,7 @@ const MyOneYearAgo = ({ date, userId }: { date: number[]; userId: string }) => {
       {data && data.length > 0 ? (
         <div className="grid grid-cols-4 gap-6 justify-center">
           {data.map((oneAgoPost) => (
-            <Link
-              className="flex justify-center items-center"
-              key={oneAgoPost.post_id}
-              href={`/list/${oneAgoPost.post_id}`}
-            >
-              <Image src={oneAgoPost.post_img} width={200} height={200} alt={data[0].post_title} />
-            </Link>
+            <ListCard key={oneAgoPost.post_id} post={oneAgoPost} />
           ))}
         </div>
       ) : (
