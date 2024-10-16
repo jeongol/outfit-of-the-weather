@@ -25,7 +25,7 @@ const CommentList = ({ id }: Props) => {
     (a, b) => new Date(b.comment_date).getTime() - new Date(a.comment_date).getTime()
   );
   return (
-    <ul className="mt-10">
+    <ul className="my-10">
       {sortedComments && sortedComments.length > 0 ? (
         sortedComments.map((comment) => <CommentItem key={comment.comment_id} comment={comment} />)
       ) : (
