@@ -1,0 +1,61 @@
+import { useCommentNickname } from "@/hooks/useQueries";
+import { CommentTypes } from "./CommentList";
+import { useUserStore } from "@/zustand/store";
+import { useDeleteComment } from "@/hooks/useMutates";
+import { useState } from "react";
+import Modal from "./Modal";
+
+type CommentItemProps = {
+  comment: CommentTypes;
+};
+
+const CommentItem = ({ comment }: CommentItemProps) => {
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const { user } = useUserStore();
+  const { data: memberData, isLoading: isMemberLoading } = useCommentNickname(comment.mem_no);
+  const findAuth = comment.mem_no === user.userId;
+
+  // useDeleteComment 훅을 조건문 밖에서 호출
+  const deleteCommentMutation = useDeleteComment();
+
+  if (isMemberLoading) return <li>로딩중...</li>;
+
+  const handleDelete = (confirm: boolean) => {
+    if (confirm) {
+      deleteCommentMutation.mutate(comment.comment_id); // 댓글 삭제 요청
+    } else {
+      setModalOpen(false);
+    }
+  };
+
+  const handleOpenModal = async () => {
+    setModalOpen(true);
+  };
+
+  return (
+    <li className="border-b py-2">
+      <p className="font-semibold">{memberData ? memberData.mem_nickname : "닉네임 없음"}</p>
+      <p>{comment.comment_content}</p>
+      <span className="text-gray-500">{comment.comment_date}</span>
+      {findAuth && (
+        <button className="border-2 p-1 hover:bg-red-500 hover:text-white" onClick={handleOpenModal}>
+          삭제
+        </button>
+      )}
+
+      <Modal isOpen={isModalOpen} onRequestClose={() => setModalOpen(false)}>
+        <p>정말로 이 포스트를 삭제하시겠습니까?</p>
+        <div className="flex flex-row gap-2">
+          <button onClick={() => handleDelete(true)} className="bg-red-100 text-red-500 border-2 p-2 hover:bg-red-200">
+            삭제하기
+          </button>
+          <button onClick={() => handleDelete(false)} className="border-2 p-2 hover:bg-gray-200">
+            취소하기
+          </button>
+        </div>
+      </Modal>
+    </li>
+  );
+};
+
+export default CommentItem;

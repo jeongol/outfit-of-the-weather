@@ -8,7 +8,8 @@ export const addPostHandler = async (
   e: React.FormEvent<HTMLFormElement>,
   formData: Omit<WriteTypes, "fileInputRef">,
   imageState: ImageType,
-  user: UserData
+  user: UserData,
+  resetForm: () => void
 ) => {
   e.preventDefault();
 
@@ -28,8 +29,8 @@ export const addPostHandler = async (
       post_date: new Date(),
       mem_no: user.userId
     };
-
     await addPost(postData);
+    resetForm();
   } catch (error) {
     console.log("글 작성 에러:", error);
   }

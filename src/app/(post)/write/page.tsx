@@ -14,11 +14,10 @@ const Page = () => {
   // zustand 상태
   const { user } = useUserStore();
   const { weather, loading, setLocation } = useWeatherStore();
-  const { formData, imageState, categoryInput, setFormData, setImageState, setCategoryInput } = useWriteStore();
+  const { formData, imageState, categoryInput, setFormData, setImageState, setCategoryInput, resetForm } = useWriteStore();
 
   const router = useRouter();
 
-  console.log(formData);
   useEffect(() => {
     const lat = 37.5665;
     const lon = 126.978;
@@ -38,7 +37,7 @@ const Page = () => {
   }, [weather, loading, setLocation, setFormData]);
 
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
-    await addPostHandler(e, formData, imageState, user);
+    await addPostHandler(e, formData, imageState, user, resetForm);
     alert("작성이 완료되었습니다.");
     router.replace("/");
     return;
