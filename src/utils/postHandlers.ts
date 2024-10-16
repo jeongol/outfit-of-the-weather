@@ -14,11 +14,13 @@ export const addPostHandler = async (
   e.preventDefault();
 
   try {
-    if (formData.post_title.length === 0 || formData.post_title === "") {
-      return alert("제목을 입력해주세요");
-    } else if (formData.post_content.length === 0 || formData.post_content === "") {
-      return alert("내용을 입력해주세요");
-    }
+    // if (formData.post_title.length === 0 || formData.post_title === "") {
+    //   return alert("제목을 입력해주세요");
+    // } else if (formData.post_content.length === 0 || formData.post_content === "") {
+    //   return alert("내용을 입력해주세요");
+    // } else if (formData.post_img.length === 0 || formData.post_img === "") {
+    //   return alert("이미지를 업로드해주세요.");
+    // }
 
     if (imageState.imageFile) {
       await uploadImage(imageState);

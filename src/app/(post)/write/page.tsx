@@ -14,7 +14,8 @@ const Page = () => {
   // zustand 상태
   const { user } = useUserStore();
   const { weather, loading, setLocation } = useWeatherStore();
-  const { formData, imageState, categoryInput, setFormData, setImageState, setCategoryInput, resetForm } = useWriteStore();
+  const { formData, imageState, categoryInput, setFormData, setImageState, setCategoryInput, resetForm } =
+    useWriteStore();
 
   const router = useRouter();
 
@@ -37,9 +38,18 @@ const Page = () => {
   }, [weather, loading, setLocation, setFormData]);
 
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
-    await addPostHandler(e, formData, imageState, user, resetForm);
-    alert("작성이 완료되었습니다.");
-    router.replace("/");
+    e.preventDefault();
+    if (formData.post_title.length === 0 || formData.post_title === "") {
+      alert("제목을 입력해주세요");
+    } else if (formData.post_content.length === 0 || formData.post_content === "") {
+      alert("내용을 입력해주세요");
+    } else if (formData.post_img.length === 0 || formData.post_img === "") {
+      alert("이미지를 업로드해주세요.");
+    } else {
+      await addPostHandler(e, formData, imageState, user, resetForm);
+      alert("작성이 완료되었습니다.");
+      router.replace("/");
+    }
     return;
   };
 
