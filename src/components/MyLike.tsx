@@ -12,7 +12,8 @@ const MyLike = ({ userId, date }: { userId: string; date: number[] }) => {
       const response = await getMyLikePosts(userId);
       return response;
     },
-    enabled: !!userId
+    enabled: !!userId,
+    staleTime: 0
   });
   if (isLoading) {
     return <div>Loading......</div>;

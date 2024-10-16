@@ -11,7 +11,8 @@ const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
       const response = await getMyPosts(userId);
       return response;
     },
-    enabled: !!userId
+    enabled: !!userId,
+    staleTime: 0
   });
   if (isLoading) {
     return <div>Loading......</div>;

@@ -25,7 +25,13 @@ const ListCard = ({ post }: { post: post }) => {
             <div className="text-[14px] text-gray-500">{post.post_date}</div>
             <div className="text-[16px] font-bold">{post.post_title}</div>
           </div>
-          {userId ? <LikeButton postId={post.post_id} /> : <></>}
+          {userId ? (
+            <div className="absolute bottom-4 right-3">
+              <LikeButton postId={post.post_id} />
+            </div>
+          ) : (
+            <></>
+          )}
         </Link>
       </div>
     </>
