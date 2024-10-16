@@ -29,8 +29,11 @@ export default function Mainpages() {
     const today = new Date().toISOString().slice(0, 10);
     const response = await browserClient.from("post").select("*").eq("post_date", today);
     const data = response.data;
+
     setPosts(data);
   };
+
+  // cdsadad
 
   fetchPosts();
   if (!posts) {
