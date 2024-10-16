@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} w-full flex flex-col items-center bg-blue-500`}>
         <Header />
-        <div className="pt-20">
+        <div className="flex flex-col pt-20 w-full justify-center items-center">
           <Providers>{children}</Providers>
         </div>
       </body>

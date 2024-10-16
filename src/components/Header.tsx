@@ -24,7 +24,7 @@ const Header = () => {
   const unSelectPage = "text-2xl font-bold";
 
   return (
-    <div className="flex flex-row fixed gap-10 w-full h-20 p-5 space-x-52 justify-center items-center bg-slate-300">
+    <div className="flex flex-row fixed z-50 gap-10 w-full h-20 p-5 space-x-52 justify-center items-center bg-slate-300">
       <Link className={nowPage === "/" ? selectPage : unSelectPage} href={"/"}>
         홈
       </Link>
