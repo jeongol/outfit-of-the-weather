@@ -1,9 +1,10 @@
 "use client";
+
 import MyLike from "@/components/MyLike";
 import MyPageHeader from "@/components/MyPageHeader";
 import MyPosts from "@/components/MyPosts";
 import { useUserStore } from "@/zustand/store";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 const Page = () => {
   const [date, setDate] = useState<number[]>([new Date().getFullYear(), new Date().getMonth() + 1]);
@@ -15,7 +16,9 @@ const Page = () => {
   const unSelectCSS = "text-4xl text-gray-300";
   return (
     <>
-      <MyPageHeader date={date} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <MyPageHeader date={date} />
+      </Suspense>
       <div className="flex flex-col gap-10 m-10">
         <div>
           <div className="flex flex-row gap-10 mb-10">
@@ -53,7 +56,9 @@ const Page = () => {
             </select>
           </div>
         </div>
-        {select === "myPosts" ? <MyPosts date={date} userId={userId} /> : <MyLike date={date} userId={userId} />}
+        <Suspense fallback={<div>Loading...</div>}>
+          {select === "myPosts" ? <MyPosts date={date} userId={userId} /> : <MyLike date={date} userId={userId} />}
+        </Suspense>
       </div>
     </>
   );
