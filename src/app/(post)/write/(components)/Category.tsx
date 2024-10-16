@@ -1,37 +1,15 @@
-import { WriteTypes } from "@/types/write";
 import React from "react";
+import { addCategoryHandler, removeTagHandler } from "@/utils/postHandlers"; // 분리된 함수 import
+import { WriteTypes } from "@/types/write";
 
 interface Props {
   categoryInput: string;
-  setCategoryInput: React.Dispatch<React.SetStateAction<string>>;
+  setCategoryInput: (input: string) => void;
   formData: Omit<WriteTypes, "fileInputRef">;
-  setFormData: React.Dispatch<React.SetStateAction<Omit<WriteTypes, "fileInputRef">>>;
+  setFormData: (data: Partial<WriteTypes>) => void;
 }
 
 const Category = ({ categoryInput, setCategoryInput, formData, setFormData }: Props) => {
-  // 해시태그 추가
-  const handleCategoryAdd = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      if (categoryInput.length === 0 || categoryInput.trim() === "") {
-        setCategoryInput("");
-        return alert("빈 태그는 입력할 수 없습니다.");
-      }
-      setFormData((prev) => ({
-        ...prev,
-        post_category: [...prev.post_category, categoryInput.trim()]
-      }));
-      setCategoryInput("");
-    }
-  };
-
-  // 해시태그 삭제
-  const handleRemoveTag = (index: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      post_category: prev.post_category.filter((_, i) => i !== index)
-    }));
-  };
   return (
     <div className="flex flex-col">
       <span>태그</span>
@@ -40,7 +18,7 @@ const Category = ({ categoryInput, setCategoryInput, formData, setFormData }: Pr
           {formData.post_category.map((tag, index) => (
             <div key={index} className="flex items-center space-x-1 bg-gray-200 gap-2 p-1 rounded">
               <span>{tag}</span>
-              <button type="button" onClick={() => handleRemoveTag(index)}>
+              <button type="button" onClick={() => removeTagHandler(index, formData, setFormData)}>
                 x
               </button>
             </div>
@@ -52,7 +30,7 @@ const Category = ({ categoryInput, setCategoryInput, formData, setFormData }: Pr
           name="post_category"
           value={categoryInput}
           onChange={(e) => setCategoryInput(e.target.value)}
-          onKeyDown={handleCategoryAdd}
+          onKeyDown={(e) => addCategoryHandler(e, categoryInput, setCategoryInput, formData, setFormData)}
         />
       </div>
     </div>
