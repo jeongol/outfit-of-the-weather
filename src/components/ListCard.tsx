@@ -22,7 +22,7 @@ const ListCard = ({ post }: { post: post }) => {
             <div>{post.post_weather}</div>
           </div>
           <div className="p-3 pl-5">
-            <div className="text-[14px] text-gray-500">{post.post_date}</div>
+            <div className="text-[14px] text-gray-500">{post.post_date.slice(0, 10)}</div>
             <div className="text-[16px] font-bold">{post.post_title}</div>
           </div>
           {userId ? (

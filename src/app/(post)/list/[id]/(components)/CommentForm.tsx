@@ -33,7 +33,7 @@ const CommentForm = ({ id }: Props) => {
       />
       <button
         type="submit"
-        className="self-end p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="self-end p-2 bg-subOrange text-white rounded hover:bg-blue-600"
         disabled={mutation.isPending}
       >
         댓글 작성

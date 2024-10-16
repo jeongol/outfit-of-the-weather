@@ -25,6 +25,8 @@ const PostDetail = ({ data, nickname }: Props) => {
   const { resetForm } = useWriteStore();
   const deletePostMutation = useDeletePost();
 
+  const userId = useUserStore((state) => state.user.userId);
+
   const handleOpenMenu = async () => {
     if (user.userId === data.mem_no) {
       setModalOpen(true);
@@ -52,28 +54,22 @@ const PostDetail = ({ data, nickname }: Props) => {
   return (
     <div className="m-auto">
       <Suspense fallback={<div className="text-gray-500">...데이터 읽어 오는 중</div>}>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between mt-4">
           <DateAndTime createDate={data.post_date} />
           <div className="flex flex-row w-300 h-300 items-center">
-            <div className="flex flex-row items-center">
-              <LikeButton postId={data.post_id} />
-              <div className="w-[30px] h-[30px] bg-gray-300 rounded-full flex items-center justify-center">
-                <Image
-                  src="https://tmqkkrunjxxrrlkjxkqq.supabase.co/storage/v1/object/public/post/post_1725217634166"
-                  width={30}
-                  height={30}
-                  alt="기본 프로필 이미지"
-                  className="rounded"
-                />
-              </div>
+            <div className="flex flex-row items-center mr-4">
               <p>{nickname}</p>
             </div>
             {/* 버튼 메뉴 및 모달  */}
             <div className="flex justify-end">
               <div className="relative">
-                <button className="text-gray-600 hover:text-gray-800 p-2" onClick={() => setMenuOpen(!isMenuOpen)}>
-                  ...
+                <button
+                  className="text-gray-600 bg-slate-200 px-2 py-1 text-sm rounded hover:text-gray-800 hover:bg-slate-300"
+                  onClick={() => setMenuOpen(!isMenuOpen)}
+                >
+                  설정
                 </button>
+
                 <MenuButton onEdit={handleEditPost} onDelete={handleOpenMenu} isMenuOpen={isMenuOpen} />
                 {/* 모달 */}
                 <Modal isOpen={isModalOpen} onRequestClose={() => setModalOpen(false)}>
@@ -95,28 +91,45 @@ const PostDetail = ({ data, nickname }: Props) => {
             {/*  */}
           </div>
         </div>
-        <div className="flex flex-row gap-2 mb-4">
-          <p className="font-semibold">{data.temperature}°C</p>
-          <p className="font-semibold">{data.post_weather}</p>
+        <div className="flex flex-row gap-2 mt-4 mb-4">
+          <p className="text-[20px] font-semibold">{data.temperature}°C</p>
+          <p className="text-[20px] font-semibold">{data.post_weather}</p>
         </div>
-        <div className="w-[600px]">
-          {/*  */}
-          <Image src={data.post_img} width={400} height={300} alt={data.post_title} />
+
+        <div className="w-full flex justify-center mt-10 relative">
+          <Image
+            src={data.post_img}
+            width={500}
+            height={400}
+            alt={data.post_title}
+            className="block w-[900px] h-auto"
+          />
         </div>
-        <h2 className="text-xl font-bold">{data.post_title}</h2>
-        <p className="text-gray-700 mb-4">{data.post_content}</p>
-        <h3 className="text-lg font-semibold mb-2">연관 태그</h3>
-        <ul className="flex flex-wrap gap-2">
-          {data.post_category.length >= 1 ? (
-            data.post_category.map((category) => (
-              <li className="bg-gray-200 text-gray-700 p-2 rounded-full" key={category}>
-                {category}
-              </li>
-            ))
-          ) : (
-            <>태그가 없습니다</>
-          )}
-        </ul>
+
+        {userId ? (
+          <div className="flex justify-center mt-4">
+            <LikeButton postId={data.post_id} />
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <h2 className="text-[30px] font-bold mt-10">{data.post_title}</h2>
+        <p className="text-[20px] pl-1 text-gray-700 mb-12">{data.post_content}</p>
+        <div className="flex flex-col mb-10">
+          <h3 className="text-[12px] font-semibold mb-2 pl-1">연관 태그</h3>
+          <ul className="flex flex-wrap gap-2">
+            {data.post_category.length >= 1 ? (
+              data.post_category.map((category) => (
+                <li className="text-[14px] bg-subOrange text-white px-4 py-1 rounded-full" key={category}>
+                  {category}
+                </li>
+              ))
+            ) : (
+              <>태그가 없습니다</>
+            )}
+          </ul>
+        </div>
       </Suspense>
     </div>
   );
