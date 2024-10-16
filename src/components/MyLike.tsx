@@ -11,7 +11,8 @@ const MyLike = ({ userId, date }: { userId: string; date: number[] }) => {
     queryFn: async () => {
       const response = await getMyLikePosts(userId);
       return response;
-    }
+    },
+    enabled: !!userId
   });
   if (isLoading) {
     return <div>Loading......</div>;

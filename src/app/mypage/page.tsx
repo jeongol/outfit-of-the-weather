@@ -19,7 +19,7 @@ const Page = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <MyPageHeader date={date} />
       </Suspense>
-      <div className="flex flex-col gap-10 m-10">
+      <div className="flex flex-col gap-10 p-10 w-full">
         <div>
           <div className="flex flex-row gap-10 mb-10">
             <button className={select === "myPosts" ? selectCSS : unSelectCSS} onClick={() => setSelect("myPosts")}>

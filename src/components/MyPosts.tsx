@@ -10,7 +10,8 @@ const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
     queryFn: async () => {
       const response = await getMyPosts(userId);
       return response;
-    }
+    },
+    enabled: !!userId
   });
   if (isLoading) {
     return <div>Loading......</div>;
