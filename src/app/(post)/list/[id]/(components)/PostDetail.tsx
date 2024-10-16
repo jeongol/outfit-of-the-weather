@@ -48,7 +48,7 @@ const PostDetail = ({ data, nickname }: Props) => {
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg w-[1280px] m-auto pr-[100px] pl-[100px]">
+    <div className="m-auto">
       <Suspense fallback={<div className="text-gray-500">...데이터 읽어 오는 중</div>}>
         <div className="flex flex-row justify-between">
           <p className="text-gray-500 text-sm mb-2">{new Date(data.post_date).toLocaleDateString()}</p>
@@ -96,7 +96,7 @@ const PostDetail = ({ data, nickname }: Props) => {
           <p className="font-semibold">{data.temperature}°C</p>
           <p className="font-semibold">{data.post_weather}</p>
         </div>
-        <div className="w-[600px] m-auto">
+        <div className="w-[600px]">
           {/*  */}
           <Image src={data.post_img} width={400} height={300} alt={data.post_title} />
         </div>
