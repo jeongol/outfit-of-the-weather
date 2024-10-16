@@ -139,7 +139,7 @@ const Page: React.FC = () => {
 
       <div>
         <div className="flex mt-20 flex-row justify-between">
-          <div className="flex text-[20px] font-bold mb-4">오늘의 OOTW 둘러보기</div>
+          <div className="flex text-[20px] font-bold mb-4">OOTW 둘러보기</div>
         </div>
         <div className="bg-white rounded-lg shadow-xl max-w-[1280px] mx-auto mb-20">
           <div className="flex flex-wrap gap-4 py-10 pl-10 min-h-[400px]">
@@ -152,7 +152,7 @@ const Page: React.FC = () => {
                 );
               })
             ) : (
-              <p className="text-5xl">게시글이 없습니다</p>
+              <p className="text-[16px]">게시글이 없습니다</p>
             )}
           </div>
         </div>

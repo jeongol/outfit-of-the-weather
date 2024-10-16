@@ -4,6 +4,8 @@ import "normalize.css";
 import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "@/components/providers/RQProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,6 +33,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} w-full flex flex-col items-center bg-mainYellow`}>
         <Header />
         <div>
+          <ToastContainer position="bottom-right" autoClose={3000} closeOnClick pauseOnHover draggable theme="light" />
           <Providers>{children}</Providers>
         </div>
       </body>

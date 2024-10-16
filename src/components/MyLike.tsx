@@ -31,7 +31,7 @@ const MyLike = ({ userId, date }: { userId: string; date: number[] }) => {
           </div>
         </div>
       ) : (
-        <p className="text-2xl">좋아요한 게시글이 없습니다</p>
+        <p className="text-2xl text-center mx-auto mb-20 px-6">좋아요한 게시글이 없습니다</p>
       )}
     </>
   );

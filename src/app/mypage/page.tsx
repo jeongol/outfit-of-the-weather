@@ -15,7 +15,7 @@ const Page = () => {
   const selectCSS = "text-[25px]";
   const unSelectCSS = "text-[25px] text-gray-300";
   return (
-    <>
+    <div className="w-[1280px]">
       <Suspense fallback={<div>Loading...</div>}>
         <MyPageHeader date={date} />
       </Suspense>
@@ -62,7 +62,7 @@ const Page = () => {
           {select === "myPosts" ? <MyPosts date={date} userId={userId} /> : <MyLike date={date} userId={userId} />}
         </Suspense>
       </div>
-    </>
+    </div>
   );
 };
 

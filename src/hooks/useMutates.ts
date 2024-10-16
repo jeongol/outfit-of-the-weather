@@ -1,8 +1,10 @@
+import { formatDateTime } from "@/components/DateAndTime";
 import { ImageType, WriteTypes } from "@/types/write";
 import { addComment, deleteComment, deletePost, updatePost, uploadImage } from "@/utils/postApi";
 import { UserData } from "@/zustand/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export const useUpdatePost = (postId: string) => {
   const router = useRouter();
@@ -30,17 +32,18 @@ export const useUpdatePost = (postId: string) => {
       }
       return updatePost(postId, {
         ...formData,
-        post_date: new Date(),
+        post_date: formatDateTime(new Date()),
         mem_no: user.userId
       });
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["post", variables.postId] });
+      toast.success("업데이트가 완료 되었습니다.");
       router.replace(`/list/${postId}`);
     },
     onError: (error) => {
       console.log("글 수정 에러:", error);
-      alert(error.message);
+      toast.warn(error.message);
     }
   });
 };
@@ -54,13 +57,15 @@ export const useAddComment = (postId: string, userId: string) => {
         post_id: postId,
         comment_content: comment.comment_content,
         mem_no: userId,
-        comment_date: new Date().toISOString()
+        comment_date: formatDateTime(new Date())
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comment", postId] });
+      toast.success("댓글 작성이 완료 되었습니다..");
     },
     onError: (error) => {
       console.error("댓글 등록 에러 발생: ", error);
+      toast.error("댓글 작성 에러가 발생했습니다.");
     }
   });
 };
@@ -73,12 +78,12 @@ export const useDeletePost = () => {
     mutationFn: (id: string) => deletePost(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["myPosts"] });
-      alert("삭제되었습니다.");
+      toast.success("게시글이 삭제 되었습니다.");
       router.replace("/list");
     },
     onError: (error) => {
-      console.error("삭제 중 오류 발생:", error);
-      alert("삭제 중 오류가 발생했습니다.");
+      console.error("게시글 삭제 중 오류 발생:", error);
+      toast.error("게시글 삭제 중 오류가 발생했습니다.");
     }
   });
 };
@@ -90,6 +95,11 @@ export const useDeleteComment = () => {
     mutationFn: (commentId: string) => deleteComment(commentId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comment"] });
+      toast.success("댓글이 삭제 되었습니다.");
+    },
+    onError: (error) => {
+      console.log("댓글 삭제 중 오류 발생:", error);
+      toast.error("댓글 삭제 중 에러가 발생 했습니다.");
     }
   });
 };

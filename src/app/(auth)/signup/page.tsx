@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -76,11 +77,11 @@ const SignupPage = () => {
         } else if (error.message.includes("already registered")) {
           setErrors((prev) => ({ ...prev, email: "이미 등록된 이메일입니다." }));
         } else {
-          alert("회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.");
+          toast.error("회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.");
         }
       } else {
         console.log("회원가입 성공!", data);
-        alert("회원가입 성공!");
+        toast.success("회원가입 성공!");
         await supabase.auth.signOut();
         router.push("/login");
       }
@@ -145,7 +146,7 @@ const SignupPage = () => {
           </label>
           {errors.nickname ? <p className="signInputError">{errors.nickname}</p> : <p className="signInputError"> </p>}
         </div>
-        <button type="submit" className="bg-blue-500 p-3 pl-5 rounded-xl mt-5">
+        <button type="submit" className="bg-subOrange text-white p-3 pl-5 rounded-xl mt-5">
           회원가입
         </button>
       </form>
