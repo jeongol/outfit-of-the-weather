@@ -62,7 +62,6 @@ export default function Mainpages() {
               <h2 className="text-[100px] font-bold">{weather.main.temp}°</h2>
               <p className="text-[20px] font-bold">{weather.weather[0].main}</p>
               <p className="text-lg font-bold">{weather.name}</p>
-              {/* <p className="text-lg mt-10">오늘의 체감온도는 {weather.main.feels_like}°C 입니다.</p> */}
             </div>
           </div>
         </div>
