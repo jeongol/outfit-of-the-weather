@@ -20,46 +20,45 @@ const Header = () => {
     }
   };
 
-  const selectPage = "text-[18px] font-bold border-solid border-b-2 border-blue-500 p-1 text-blue-500";
-  const unSelectPage = "text-[18px] font-bold ";
+  const selectPage = "text-[16px] font-bold border-solid border-b-2 border-subOrange p-1 text-subOrange";
+  const unSelectPage = "text-[16px] font-bold border-solid border-b-2 border-transparent p-1 text-mainText";
 
   return (
-    <div className="flex flex-row fixed gap-10 w-full h-20 p-5 bg-white text-[#333] max-w-[1280px] mx-auto">
-      <div className="my-auto">
-        <div>OOTW</div>
-      </div>
-      <div className="flex flex-row gap-10 items-center flex-grow">
-        {" "}
-        {/* 왼쪽 정렬을 위한 flex-grow 추가 */}
-        <Link className={nowPage === "/" ? selectPage : unSelectPage} href={"/"}>
-          홈
-        </Link>
-        <Link className={nowPage === "/list" ? selectPage : unSelectPage} href={"/list"}>
-          코디리스트
-        </Link>
-        {user.isAuthenticated ? (
-          <>
-            <Link className={nowPage === "/mypage" ? selectPage : unSelectPage} href={"/mypage"} prefetch={false}>
-              마이페이지
-            </Link>
-            <button className="text-gray-500 text-[18px] font-bold hover:text-black" onClick={handleLogout}>
-              로그아웃
-            </button>
-          </>
-        ) : (
-          <Link className={nowPage === "/login" ? selectPage : unSelectPage} href={"/login"}>
-            로그인
+    <div className="w-full h-25 border-b-2 border-b-mainGreen bg-mainGreen shadow-lg">
+      <div className="flex flex-row w-[1280px] h-25 py-5 text-mainText mx-auto">
+        <div className="flex items-center justify-center gap-10">
+          <div>Outfit Of The Weather</div>
+          <Link className={nowPage === "/" ? selectPage : unSelectPage} href={"/"}>
+            홈
           </Link>
-        )}
-      </div>
-      <div className="ml-auto">
-        {" "}
-        <Link
-          href={"/write"}
-          className="bg-gray-200 text-[16px] text-black p-5 w-[250px] h-[50px] rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-blue-500 flex items-center justify-center"
-        >
-          나의 OOTW 올리기
-        </Link>
+          <Link className={nowPage === "/list" ? selectPage : unSelectPage} href={"/list"}>
+            OOTW 리스트
+          </Link>
+        </div>
+
+        {/* 오른쪽 정렬 그룹 */}
+        <div className="flex flex-row gap-10 items-center ml-auto">
+          {user.isAuthenticated ? (
+            <>
+              <Link className={nowPage === "/mypage" ? selectPage : unSelectPage} href={"/mypage"} prefetch={false}>
+                마이페이지
+              </Link>
+              <button className="text-gray-500 text-[16px] font-bold hover:text-black" onClick={handleLogout}>
+                로그아웃
+              </button>
+            </>
+          ) : (
+            <Link className={nowPage === "/login" ? selectPage : unSelectPage} href={"/login"}>
+              로그인
+            </Link>
+          )}
+          <Link
+            href={"/write"}
+            className="bg-mainYellow border border-mainGreen text-[16px] text-bold p-5 w-[200px] h-[48px] rounded-l shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-subOrange  hover:text-white flex items-center justify-center"
+          >
+            나의 OOTW 올리기
+          </Link>
+        </div>
       </div>
     </div>
   );

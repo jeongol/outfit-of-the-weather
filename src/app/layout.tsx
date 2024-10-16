@@ -28,9 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} w-full flex flex-col items-center bg-blue-500`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} w-full flex flex-col items-center bg-mainYellow`}>
         <Header />
-        <div className="flex flex-col pt-20 w-full justify-center items-center">
+        <div>
           <Providers>{children}</Providers>
         </div>
       </body>
