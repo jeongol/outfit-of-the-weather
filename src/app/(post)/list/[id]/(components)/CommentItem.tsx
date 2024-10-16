@@ -34,14 +34,20 @@ const CommentItem = ({ comment }: CommentItemProps) => {
 
   return (
     <li className="border-b py-2">
-      <p className="font-semibold">{memberData ? memberData.mem_nickname : "닉네임 없음"}</p>
-      <p>{comment.comment_content}</p>
-      <span className="text-gray-500">{comment.comment_date}</span>
-      {findAuth && (
-        <button className="border-2 p-1 hover:bg-red-500 hover:text-white" onClick={handleOpenModal}>
-          삭제
-        </button>
-      )}
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-col">
+          <p className="font-semibold">{memberData ? memberData.mem_nickname : "닉네임 없음"}</p>
+          <p>{comment.comment_content}</p>
+          <span className="text-gray-500">{comment.comment_date}</span>
+        </div>
+        <div>
+          {findAuth && (
+            <button className="text-white bg-red-400 border-2 p-2 hover:bg-red-500  rounded" onClick={handleOpenModal}>
+              삭제
+            </button>
+          )}
+        </div>
+      </div>
 
       <Modal isOpen={isModalOpen} onRequestClose={() => setModalOpen(false)}>
         <p>정말로 이 포스트를 삭제하시겠습니까?</p>

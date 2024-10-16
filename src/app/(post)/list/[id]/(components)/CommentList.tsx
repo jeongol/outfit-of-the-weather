@@ -22,7 +22,7 @@ const CommentList = ({ id }: Props) => {
   if (isError) return <>댓글을 불러오는 중 오류가 발생했습니다.</>;
 
   return (
-    <ul>
+    <ul className="mt-10">
       {comments && comments.length > 0 ? (
         comments.map((comment) => <CommentItem key={comment.comment_id} comment={comment} />)
       ) : (
