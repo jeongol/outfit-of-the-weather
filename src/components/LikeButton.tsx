@@ -32,7 +32,7 @@ const LikeButton = ({ postId }: { postId: string }) => {
 
   return (
     <button
-      className="absolute bottom-4 right-3 text-3xl px-1 border-solid border-2 border-red-300 rounded-xl bg-white hover:bg-red-300"
+      className="text-3xl px-1 border-solid border-2 border-red-300 rounded-xl bg-white hover:bg-red-300"
       onClick={(e) => {
         e.preventDefault();
         postMyLikePost(userId, postId);

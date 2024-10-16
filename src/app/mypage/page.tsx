@@ -12,16 +12,16 @@ const Page = () => {
 
   const userId = useUserStore((state) => state.user.userId);
 
-  const selectCSS = "text-5xl";
-  const unSelectCSS = "text-4xl text-gray-300";
+  const selectCSS = "text-[25px]";
+  const unSelectCSS = "text-[25px] text-gray-300";
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <MyPageHeader date={date} />
       </Suspense>
-      <div className="flex flex-col gap-10 p-10 w-full">
+      <div className="flex flex-col gap-10 w-full mt-10">
         <div>
-          <div className="flex flex-row gap-10 mb-10">
+          <div className="flex flex-row gap-10 mb-2">
             <button className={select === "myPosts" ? selectCSS : unSelectCSS} onClick={() => setSelect("myPosts")}>
               My Posts
             </button>
@@ -29,9 +29,10 @@ const Page = () => {
               My Likes
             </button>
           </div>
-          <div className="flex flex-row gap-10 mx-10 justify-end">
+          <div className="border border-white"></div>
+          <div className="flex flex-row gap-4 justify-end mt-2">
             <select
-              className="text-2xl"
+              className="text-[16px] border px-3 border-gray-300 rounded-lg p-2 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-subOrange transition duration-200"
               name="년"
               onChange={(e) => setDate((recent) => [Number(e.target.value), recent[1]])}
               defaultValue={date[0]}
@@ -42,8 +43,9 @@ const Page = () => {
                 </option>
               ))}
             </select>
+
             <select
-              className="text-2xl"
+              className="text-[16px] border px-3 border-gray-300 rounded-lg p-2 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-subOrange transition duration-200"
               name="월"
               onChange={(e) => setDate((recent) => [recent[0], Number(e.target.value)])}
               defaultValue={date[1]}

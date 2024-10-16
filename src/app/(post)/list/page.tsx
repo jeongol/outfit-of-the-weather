@@ -2,8 +2,8 @@
 
 import ListCard from "@/components/ListCard";
 import { post } from "@/types/post";
+import { useWeatherStore } from "@/zustand/weatherStore";
 import { createClient } from "@supabase/supabase-js";
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -35,6 +35,30 @@ const Page: React.FC = () => {
   const [data, setData] = useState<post[]>([]);
   const [selectedWeather, setSelectedWeather] = useState<string[]>([]);
 
+  const { weather, setLocation } = useWeatherStore();
+
+  useEffect(() => {
+    const soeul = { lat: 37.5665, lon: 126.978 };
+
+    const geoloat = (position: GeolocationPosition) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      setLocation(lat, lon);
+    };
+
+    const headleError = () => {
+      setLocation(soeul.lat, soeul.lon);
+    };
+
+    navigator.geolocation.getCurrentPosition(geoloat, headleError);
+  }, [setLocation]);
+
+  useEffect(() => {
+    if (weather.main.temp) {
+      setValue(weather.main.temp);
+    }
+  }, [weather]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(e.target.value));
   };
@@ -43,7 +67,6 @@ const Page: React.FC = () => {
     setSelectedWeather((prevSelected) =>
       prevSelected.includes(weather) ? prevSelected.filter((w) => w !== weather) : [...prevSelected, weather]
     );
-    console.log(selectedWeather);
   };
 
   useEffect(() => {
@@ -68,17 +91,9 @@ const Page: React.FC = () => {
 
   return (
     <>
-      <div className="my-10">
-        <Link
-          href={"/write"}
-          className="bg-white text-[20px] text-black p-5 w-[400px] h-[100px] rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-gray-100 flex items-center justify-center"
-        >
-          나의 OOTW 올리기
-        </Link>
-      </div>
-      <div className="w-[1280px] border pt-6 flex flex-col justify-center items-center">
+      <div className="w-[1280px] border mt-10 flex flex-col justify-center items-center bg-white rounded-xl">
         <div className="flex flex-col w-[800px] items-center py-4">
-          <h2 className="text-[25px] font-bold mb-2">온도</h2>
+          <h2 className="text-[25px] font-bold mt-8 mb-2">온도</h2>
           <h3 className="text-[18px] mb-2">OOTW가 궁금한 온도를 검색해주세요</h3>
           <div className="flex flex-col w-full max-w-xs space-y-4 mt-4 justify-center items-center">
             <input
@@ -96,12 +111,12 @@ const Page: React.FC = () => {
               max="40"
               value={value}
               onChange={handleChange}
-              className="h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-slider  w-[350px]"
+              className="h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-slider w-[350px]"
             />
           </div>
         </div>
 
-        <div className="flex flex-col w-[800px] items-center py-4 mt-4">
+        <div className="flex flex-col w-[800px] items-center py-4 mt-4 mb-10">
           <h2 className="text-[25px] font-bold mb-2">날씨</h2>
           <h3 className="text-[18px] mb-2">날씨를 선택해주세요</h3>
           <div className="flex gap-4 flex-wrap justify-center mt-4">
@@ -110,7 +125,7 @@ const Page: React.FC = () => {
                 key={weather}
                 className={`w-[80px] h-[30px] text-[14px] font-medium rounded transition-all duration-300 ease-in-out ${
                   selectedWeather.includes(weather)
-                    ? "bg-blue-500 text-white shadow-lg transform scale-105"
+                    ? "bg-subOrange text-white shadow-lg transform scale-105"
                     : "bg-gray-200 text-black hover:bg-gray-300"
                 }`}
                 onClick={() => handleToggleWeather(weather)}
@@ -121,18 +136,25 @@ const Page: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="border w-[1280px] flex flex-col pt-10">
-        <div>리스트 부분</div>
-        <div>
-          {data.length > 0 ? (
-            <div className="flex gap-4">
-              {data.map((post) => {
-                return <ListCard key={post.post_id} post={post} />;
-              })}
-            </div>
-          ) : (
-            <p className="text-5xl">게시글이 없습니다</p>
-          )}
+
+      <div>
+        <div className="flex mt-20 flex-row justify-between">
+          <div className="flex text-[20px] font-bold mb-4">오늘의 OOTW 둘러보기</div>
+        </div>
+        <div className="bg-white rounded-lg shadow-xl max-w-[1280px] mx-auto mb-20">
+          <div className="flex flex-wrap gap-4 py-10 pl-10 min-h-[400px]">
+            {data.length > 0 ? (
+              data.map((post) => {
+                return (
+                  <div className="flex-none w-[calc(25%-1rem)] max-w-[300px]" key={post.post_id}>
+                    <ListCard post={post} />
+                  </div>
+                );
+              })
+            ) : (
+              <p className="text-5xl">게시글이 없습니다</p>
+            )}
+          </div>
         </div>
       </div>
     </>

@@ -20,31 +20,46 @@ const Header = () => {
     }
   };
 
-  const selectPage = "text-2xl font-bold border-solid border-b-4 border-black p-1";
-  const unSelectPage = "text-2xl font-bold";
+  const selectPage = "text-[16px] font-bold border-solid border-b-2 border-subOrange p-1 text-subOrange";
+  const unSelectPage = "text-[16px] font-bold border-solid border-b-2 border-transparent p-1 text-mainText";
 
   return (
-    <div className="flex flex-row fixed z-50 gap-10 w-full h-20 p-5 space-x-52 justify-center items-center bg-slate-300">
-      <Link className={nowPage === "/" ? selectPage : unSelectPage} href={"/"}>
-        홈
-      </Link>
-      <Link className={nowPage === "/list" ? selectPage : unSelectPage} href={"/list"}>
-        코디리스트
-      </Link>
-      {user.isAuthenticated ? (
-        <>
-          <Link className={nowPage === "/mypage" ? selectPage : unSelectPage} href={"/mypage"} prefetch={false}>
-            마이페이지
+    <div className="w-full h-25 border-b-2 border-b-mainGreen bg-mainGreen shadow-lg">
+      <div className="flex flex-row w-[1280px] h-25 py-5 text-mainText mx-auto">
+        <div className="flex items-center justify-center gap-10">
+          <div>Outfit Of The Weather</div>
+          <Link className={nowPage === "/" ? selectPage : unSelectPage} href={"/"}>
+            홈
           </Link>
-          <button className="text-2xl font-bold text-gray-500 hover:text-black" onClick={handleLogout}>
-            로그아웃
-          </button>
-        </>
-      ) : (
-        <Link className={nowPage === "/login" ? selectPage : unSelectPage} href={"/login"}>
-          로그인
-        </Link>
-      )}
+          <Link className={nowPage === "/list" ? selectPage : unSelectPage} href={"/list"}>
+            OOTW 리스트
+          </Link>
+        </div>
+
+        {/* 오른쪽 정렬 그룹 */}
+        <div className="flex flex-row gap-10 items-center ml-auto">
+          {user.isAuthenticated ? (
+            <>
+              <Link className={nowPage === "/mypage" ? selectPage : unSelectPage} href={"/mypage"} prefetch={false}>
+                마이페이지
+              </Link>
+              <button className="text-gray-500 text-[16px] font-bold hover:text-black" onClick={handleLogout}>
+                로그아웃
+              </button>
+            </>
+          ) : (
+            <Link className={nowPage === "/login" ? selectPage : unSelectPage} href={"/login"}>
+              로그인
+            </Link>
+          )}
+          <Link
+            href={"/write"}
+            className="bg-mainYellow border border-mainGreen text-[16px] text-bold p-5 w-[200px] h-[48px] rounded-l shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-subOrange  hover:text-white flex items-center justify-center"
+          >
+            나의 OOTW 올리기
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

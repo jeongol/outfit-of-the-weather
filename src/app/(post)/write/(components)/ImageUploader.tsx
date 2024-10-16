@@ -13,10 +13,10 @@ const ImageUploader = ({ imageState, setImageState, setFormData }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="border cursor-pointer" onClick={() => triggerImageInputClick(fileInputRef)}>
-      <div className="w-[200px] h-[full] rounded">
+    <div className="border w-[400px] h-[600px] cursor-pointer" onClick={() => triggerImageInputClick(fileInputRef)}>
+      <div className="flex items-center justify-center w-full h-full rounded overflow-hidden">
         {imageState.prevImage ? (
-          <Image src={imageState.prevImage} width={300} height={300} alt="업로드 이미지" />
+          <Image src={imageState.prevImage} width={400} height={500} alt="업로드 이미지" className="object-cover p-4" />
         ) : (
           <div className="m-0">사진을 추가하세요</div>
         )}
