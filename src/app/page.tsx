@@ -26,14 +26,15 @@ export default function Mainpages() {
   }, [setLocation]);
 
   const fetchPosts = async () => {
-    const today = new Date().toISOString().slice(0, 10);
+    const now = new Date();
+    const kst = 9 * 60 * 60 * 1000;
+    const kstDate = new Date(now.getTime() + kst);
+    const today = kstDate.toISOString().slice(0, 10);
     const response = await browserClient.from("post").select("*").eq("post_date", today);
     const data = response.data;
 
     setPosts(data);
   };
-
-  // cdsadad
 
   fetchPosts();
   if (!posts) {
