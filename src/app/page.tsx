@@ -4,7 +4,6 @@ import { useWeatherStore } from "@/zustand/weatherStore";
 import browserClient from "@/utils/supabase/client";
 import { post } from "@/types/post";
 import ListCard from "@/components/ListCard";
-import Image from "next/image";
 
 export default function Mainpages() {
   const { weather, setLocation } = useWeatherStore();
@@ -42,12 +41,11 @@ export default function Mainpages() {
       <div>
         <h3 className="">지역: {weather.name}</h3>
         <p>날씨: {weather.weather[0].main}</p>
-        <Image
+        <img
           src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
           alt="날씨 이미지"
           width={80}
           height={80}
-          priority={true}
         />
         <p>기온: {weather.main.temp}°C</p>
       </div>
