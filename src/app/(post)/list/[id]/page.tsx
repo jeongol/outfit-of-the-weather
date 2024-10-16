@@ -1,5 +1,6 @@
-import { getPost } from "@/utils/postApi";
-import { WriteTypes } from "@/types/write";
+"use client";
+
+import { useMemberInfo, usePostData } from "@/hooks/useQueries";
 import PostDetail from "./(components)/PostDetail";
 
 type Props = {
@@ -8,16 +9,20 @@ type Props = {
   };
 };
 
-const PostDetailPage = async ({ params }: Props) => {
+const PostDetailPage = ({ params }: Props) => {
   const { id } = params;
 
-  const data: WriteTypes | null = await getPost(id);
+  const { data, isLoading } = usePostData(id);
+  const { data: memberData } = useMemberInfo(id);
 
-  if (!data) {
-    return <div>게시물을 찾을 수 없습니다.</div>;
+  if (isLoading) {
+    return <>로딩중</>;
   }
 
-  return <PostDetail data={data} />;
-};
+  if (!data || !memberData) {
+    return <div>데이터를 찾을 수 없습니다.</div>;
+  }
 
+  return <PostDetail data={data} nickname={memberData.member.mem_nickname} />;
+};
 export default PostDetailPage;
