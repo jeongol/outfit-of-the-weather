@@ -4,8 +4,6 @@ import { useUserStore } from "@/zustand/store";
 import { useDeleteComment } from "@/hooks/useMutates";
 import { useState } from "react";
 import Modal from "./Modal";
-import { differenceInDays, formatDistanceToNow } from "date-fns";
-import { format } from "path";
 import DateAndTime from "@/components/DateAndTime";
 
 type CommentItemProps = {

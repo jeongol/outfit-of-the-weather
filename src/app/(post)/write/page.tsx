@@ -35,7 +35,7 @@ const Page = () => {
       }
     };
     handleGetWeatherAndUser();
-  }, [weather, loading, setLocation, setFormData]);
+  }, [weather, loading, setLocation, setFormData, resetForm]);
 
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
