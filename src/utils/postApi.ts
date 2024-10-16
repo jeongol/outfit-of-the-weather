@@ -88,7 +88,7 @@ export const addComment = async (comment: {
   post_id: string;
   comment_content: string;
   mem_no: string;
-  comment_date: Date;
+  comment_date: string;
 }) => {
   const { data, error } = await browserClient.from("comment").insert([comment]);
 
