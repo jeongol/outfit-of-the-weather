@@ -40,21 +40,16 @@ const Page: React.FC = () => {
   };
 
   const handleToggleWeather = (weather: string) => {
-    setSelectedWeather(
-      (prevSelected) =>
-        prevSelected.includes(weather)
-          ? prevSelected.filter((w) => w !== weather) // 이미 선택된 경우 제거
-          : [...prevSelected, weather] // 선택되지 않은 경우 추가
+    setSelectedWeather((prevSelected) =>
+      prevSelected.includes(weather) ? prevSelected.filter((w) => w !== weather) : [...prevSelected, weather]
     );
     console.log(selectedWeather);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      // 기본 쿼리 생성
       let query = supabase.from("post").select("*").eq("temperature", value);
 
-      // selectedWeather가 비어 있지 않으면 조건 추가
       if (selectedWeather.length > 0) {
         query = query.in("post_weather", selectedWeather);
       }
