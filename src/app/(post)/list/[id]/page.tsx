@@ -2,8 +2,10 @@
 
 import { useMemberInfo, usePostData } from "@/hooks/useQueries";
 import PostDetail from "./(components)/PostDetail";
+import CommentForm from "./(components)/CommentForm";
+import CommentList from "./(components)/CommentList";
 
-type Props = {
+export type Props = {
   params: {
     id: string;
   };
@@ -23,6 +25,12 @@ const PostDetailPage = ({ params }: Props) => {
     return <div>데이터를 찾을 수 없습니다.</div>;
   }
 
-  return <PostDetail data={data} nickname={memberData.member.mem_nickname} />;
+  return (
+    <div className="p-6 bg-white shadow-md rounded-lg w-[1280px] m-auto pr-[100px] pl-[100px]">
+      <PostDetail data={data} nickname={memberData.member.mem_nickname} />
+      <CommentForm id={id} />
+      <CommentList id={id} />
+    </div>
+  );
 };
 export default PostDetailPage;

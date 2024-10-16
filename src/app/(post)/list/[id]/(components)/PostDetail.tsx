@@ -9,6 +9,8 @@ import MenuButton from "./MenuButton";
 import { useWriteStore } from "@/zustand/writeStore";
 import { post } from "@/types/post";
 import { useDeletePost } from "@/hooks/useMutates";
+import DateAndTime from "@/components/DateAndTime";
+import LikeButton from "@/components/LikeButton";
 
 type Props = {
   data: post;
@@ -39,17 +41,22 @@ const PostDetail = ({ data, nickname }: Props) => {
   };
 
   const handleEditPost = () => {
-    resetForm();
-    router.replace(`/list/${data.post_id}/update`);
+    if (user.userId === data.mem_no) {
+      resetForm();
+      router.replace(`/list/${data.post_id}/update`);
+    } else {
+      alert("작성자만 수정 가능합니다.");
+    }
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg w-[1280px] m-auto pr-[100px] pl-[100px]">
+    <div className="m-auto">
       <Suspense fallback={<div className="text-gray-500">...데이터 읽어 오는 중</div>}>
         <div className="flex flex-row justify-between">
-          <p className="text-gray-500 text-sm mb-2">{new Date(data.post_date).toLocaleDateString()}</p>
+          <DateAndTime createDate={data.post_date} />
           <div className="flex flex-row w-300 h-300 items-center">
             <div className="flex flex-row items-center">
+              <LikeButton postId={data.post_id} />
               <div className="w-[30px] h-[30px] bg-gray-300 rounded-full flex items-center justify-center">
                 <Image
                   src="https://tmqkkrunjxxrrlkjxkqq.supabase.co/storage/v1/object/public/post/post_1725217634166"
@@ -92,7 +99,7 @@ const PostDetail = ({ data, nickname }: Props) => {
           <p className="font-semibold">{data.temperature}°C</p>
           <p className="font-semibold">{data.post_weather}</p>
         </div>
-        <div className="w-[600px] m-auto">
+        <div className="w-[600px]">
           {/*  */}
           <Image src={data.post_img} width={400} height={300} alt={data.post_title} />
         </div>

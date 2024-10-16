@@ -1,5 +1,5 @@
 import { ImageType, WriteTypes } from "@/types/write";
-import { deletePost, updatePost, uploadImage } from "@/utils/postApi";
+import { addComment, deleteComment, deletePost, updatePost, uploadImage } from "@/utils/postApi";
 import { UserData } from "@/zustand/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -45,20 +45,51 @@ export const useUpdatePost = (postId: string) => {
   });
 };
 
+export const useAddComment = (postId: string, userId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (comment: { comment_content: string }) =>
+      addComment({
+        post_id: postId,
+        comment_content: comment.comment_content,
+        mem_no: userId,
+        comment_date: new Date().toISOString()
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comment", postId] });
+    },
+    onError: (error) => {
+      console.error("댓글 등록 에러 발생: ", error);
+    }
+  });
+};
+
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation({
-    mutationFn: deletePost,
+    mutationFn: (id: string) => deletePost(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["myPosts"] });
       alert("삭제되었습니다.");
-      router.replace("/mypage");
+      router.replace("/list");
     },
     onError: (error) => {
       console.error("삭제 중 오류 발생:", error);
       alert("삭제 중 오류가 발생했습니다.");
+    }
+  });
+};
+
+export const useDeleteComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (commentId: string) => deleteComment(commentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comment"] });
     }
   });
 };

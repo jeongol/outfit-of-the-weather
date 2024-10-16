@@ -11,10 +11,10 @@ interface Props {
 
 const Category = ({ categoryInput, setCategoryInput, formData, setFormData }: Props) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-[100px]">
       <span>태그</span>
       <div className="flex flex-row gap-2">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 w-[300px] h-[30px]">
           {formData.post_category.map((tag, index) => (
             <div key={index} className="flex items-center space-x-1 bg-gray-200 gap-2 p-1 rounded">
               <span>{tag}</span>

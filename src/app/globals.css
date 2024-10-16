@@ -16,9 +16,15 @@
 }
 
 body {
-  color: var(--foreground);
+  color: #304535;
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 @layer utilities {
@@ -29,6 +35,9 @@ body {
 
 @layer components {
   .signInput {
-    @apply w-96 text-black p-2 rounded-md;
+    @apply w-[400px] text-black p-3 pl-5 rounded-md border;
+  }
+  .signInputError {
+    @apply w-[400px] text-red-500 h-[30px] mt-1 text-[12px]; /* 오류 메시지 색상 */
   }
 }
