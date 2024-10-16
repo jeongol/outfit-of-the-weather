@@ -26,7 +26,7 @@ const PostDetailPage = ({ params }: Props) => {
   }
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg w-[1280px] m-auto pr-[100px] pl-[100px]">
+    <div className="p-6 bg-white shadow-md rounded-lg w-[1280px] m-auto pr-[100px] pl-[100px] mt-10 mb-20">
       <PostDetail data={data} nickname={memberData.member.mem_nickname} />
       <CommentForm id={id} />
       <CommentList id={id} />
