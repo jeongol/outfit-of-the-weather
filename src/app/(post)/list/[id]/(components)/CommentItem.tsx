@@ -22,7 +22,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
 
   const handleDelete = (confirm: boolean) => {
     if (confirm) {
-      deleteCommentMutation.mutate(comment.comment_id); 
+      deleteCommentMutation.mutate(comment.comment_id);
     } else {
       setModalOpen(false);
     }
@@ -38,7 +38,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
         <div className="flex flex-col">
           <p className="font-semibold">{memberData ? memberData.mem_nickname : "닉네임 없음"}</p>
           <p>{comment.comment_content}</p>
-          <DateAndTime createDate={comment.comment_date} />
+          <DateAndTime createDate={comment.comment_date} newDate={null} />
         </div>
         <div>
           {findAuth && (

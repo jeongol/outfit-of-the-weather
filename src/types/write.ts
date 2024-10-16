@@ -5,7 +5,7 @@ export interface WriteTypes {
   post_weather: string;
   post_content: string;
   post_category: string[];
-  post_date: Date;
+  post_date: string;
   post_img: string;
   fileInputRef: HTMLInputElement | null;
 }

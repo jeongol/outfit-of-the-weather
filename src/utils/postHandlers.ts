@@ -1,3 +1,4 @@
+import { formatDateTime } from "@/components/DateAndTime";
 import { ImageType, WriteTypes } from "@/types/write";
 import { uploadImage, addPost } from "@/utils/postApi";
 import { UserData } from "@/zustand/store";
@@ -28,7 +29,7 @@ export const addPostHandler = async (
 
     const postData = {
       ...formData,
-      post_date: new Date(),
+      post_date: formatDateTime(new Date()),
       mem_no: user.userId
     };
     await addPost(postData);

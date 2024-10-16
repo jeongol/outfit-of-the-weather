@@ -1,5 +1,6 @@
 // store/writeStore.ts
 
+import { formatDateTime } from "@/components/DateAndTime";
 import { WriteTypes, ImageType } from "@/types/write";
 import { create } from "zustand";
 
@@ -20,7 +21,7 @@ export const useWriteStore = create<WriteState>((set) => ({
     post_weather: "",
     post_content: "",
     post_category: [],
-    post_date: new Date(),
+    post_date: formatDateTime(new Date()),
     post_img: "",
     mem_no: ""
   },
@@ -48,7 +49,7 @@ export const useWriteStore = create<WriteState>((set) => ({
         post_weather: "",
         post_content: "",
         post_category: [],
-        post_date: new Date(),
+        post_date: formatDateTime(new Date()),
         post_img: "",
         mem_no: ""
       },

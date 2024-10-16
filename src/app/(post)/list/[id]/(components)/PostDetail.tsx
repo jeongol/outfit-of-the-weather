@@ -10,6 +10,7 @@ import { useWriteStore } from "@/zustand/writeStore";
 import { post } from "@/types/post";
 import { useDeletePost } from "@/hooks/useMutates";
 import DateAndTime from "@/components/DateAndTime";
+import { toast } from "react-toastify";
 import LikeButton from "@/components/LikeButton";
 
 type Props = {
@@ -31,7 +32,7 @@ const PostDetail = ({ data, nickname }: Props) => {
     if (user.userId === data.mem_no) {
       setModalOpen(true);
     } else {
-      alert("작성자만 삭제 가능합니다.");
+      toast.warn("작성자만 삭제 가능합니다.");
     }
   };
 
@@ -47,7 +48,7 @@ const PostDetail = ({ data, nickname }: Props) => {
       resetForm();
       router.replace(`/list/${data.post_id}/update`);
     } else {
-      alert("작성자만 수정 가능합니다.");
+      toast.warn("작성자만 수정 가능합니다.");
     }
   };
 
@@ -55,7 +56,7 @@ const PostDetail = ({ data, nickname }: Props) => {
     <div className="m-auto">
       <Suspense fallback={<div className="text-gray-500">...데이터 읽어 오는 중</div>}>
         <div className="flex flex-row justify-between mt-4">
-          <DateAndTime createDate={data.post_date} />
+          <DateAndTime createDate={data.post_date} newDate={data.post_newdate} />
           <div className="flex flex-row w-300 h-300 items-center">
             <div className="flex flex-row items-center mr-4">
               <p>{nickname}</p>
@@ -100,9 +101,9 @@ const PostDetail = ({ data, nickname }: Props) => {
           <Image
             src={data.post_img}
             width={500}
-            height={400}
+            height={450}
             alt={data.post_title}
-            className="block w-[900px] h-auto"
+            className="block w-[420px] h-auto"
           />
         </div>
 
@@ -119,15 +120,12 @@ const PostDetail = ({ data, nickname }: Props) => {
         <div className="flex flex-col mb-10">
           <h3 className="text-[12px] font-semibold mb-2 pl-1">연관 태그</h3>
           <ul className="flex flex-wrap gap-2">
-            {data.post_category.length >= 1 ? (
+            {data.post_category.length >= 1 &&
               data.post_category.map((category) => (
                 <li className="text-[14px] bg-subOrange text-white px-4 py-1 rounded-full" key={category}>
                   {category}
                 </li>
-              ))
-            ) : (
-              <>태그가 없습니다</>
-            )}
+              ))}
           </ul>
         </div>
       </Suspense>

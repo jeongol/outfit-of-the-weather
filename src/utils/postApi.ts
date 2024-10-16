@@ -3,6 +3,7 @@ import browserClient from "./supabase/client";
 // import supabaseServerClient from "./supabase/s";
 import { post } from "@/types/post";
 import { CommentTypes } from "@/app/(post)/list/[id]/(components)/CommentList";
+import { formatDateTime } from "@/components/DateAndTime";
 
 export const getPost = async (id: string): Promise<post> => {
   const { data, error } = await browserClient.from("post").select("*").eq("post_id", id).single();
@@ -45,7 +46,7 @@ export const updatePost = async (id: string, formData: Omit<WriteTypes, "fileInp
       post_content: formData.post_content,
       post_category: formData.post_category,
       post_img: formData.post_img,
-      post_newdate: new Date()
+      post_newdate: formatDateTime(new Date())
     })
     .eq("post_id", id)
     .select();

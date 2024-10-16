@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ImageUploader from "./(components)/ImageUploader";
 import Category from "./(components)/Category";
 import InputField from "./(components)/InputField";
@@ -9,6 +9,7 @@ import { useWriteStore } from "@/zustand/writeStore";
 import { addPostHandler, fieldChangeHandler } from "@/utils/postHandlers";
 import { useRouter } from "next/navigation";
 import FormLayout from "./(components)/WirteForm";
+import { toast } from "react-toastify";
 
 const Page = () => {
   // zustand 상태
@@ -16,7 +17,7 @@ const Page = () => {
   const { weather, loading, setLocation } = useWeatherStore();
   const { formData, imageState, categoryInput, setFormData, setImageState, setCategoryInput, resetForm } =
     useWriteStore();
-
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -40,17 +41,19 @@ const Page = () => {
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formData.post_title.length === 0 || formData.post_title === "") {
-      alert("제목을 입력해주세요");
+      toast.warn("제목을 입력해주세요");
+      return;
     } else if (formData.post_content.length === 0 || formData.post_content === "") {
-      alert("내용을 입력해주세요");
+      toast.warn("내용을 입력해주세요");
+      return;
     } else if (formData.post_img.length === 0 || formData.post_img === "") {
-      alert("이미지를 업로드해주세요.");
-    } else {
-      await addPostHandler(e, formData, imageState, user, resetForm);
-      alert("작성이 완료되었습니다.");
-      router.replace("/");
+      toast.warn("이미지를 업로드해주세요.");
+      return;
     }
-    return;
+    setIsButtonDisabled(true);
+    await addPostHandler(e, formData, imageState, user, resetForm);
+    toast.success("작성이 완료되었습니다.");
+    router.replace("/");
   };
 
   return (
@@ -104,7 +107,11 @@ const Page = () => {
           </div>
         </div>
         <div className="flex flex-row-reverse p-3">
-          <button type="submit" className="border p-2 bg-blue-500 text-white hover:bg-blue-600 rounded">
+          <button
+            type="submit"
+            className="border p-2 bg-blue-500 text-white hover:bg-blue-600 rounded"
+            disabled={isButtonDisabled}
+          >
             작성하기
           </button>
         </div>

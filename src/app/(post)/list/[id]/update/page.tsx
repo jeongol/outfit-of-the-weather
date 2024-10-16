@@ -98,7 +98,7 @@ const Page = ({ params }: Props) => {
         </div>
         <div className="flex flex-row-reverse p-3">
           <button type="submit" className="border p-2 bg-blue-500 text-white hover:bg-blue-600 rounded">
-            업데이트하기
+            업데이트
           </button>
         </div>
       </div>
