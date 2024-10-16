@@ -46,7 +46,7 @@ export const getMyLikePosts = async (id: string) => {
   // id를 기반으로 게시물 가져오기
   if (likePostIds.length > 0) {
     const likePromises = likePostIds.map(async (likePostId) => {
-      const postResponse = await browserClient.from("post").select("*").eq("post_id", likePostId).range(0, 9);
+      const postResponse = await browserClient.from("post").select("*").eq("post_id", likePostId);
 
       if (postResponse.data) {
         return postResponse.data[0] as post;

@@ -47,10 +47,10 @@ export default LikeButton;
 
 // 내가 스크랩한 게시물의 id 가져오기
 export const getMyLikePostIds = async (id: string) => {
-  const res = await browserClient.from("like").select("*").eq("mem_no", id);
+  const res = await browserClient.from("like").select("postId").eq("mem_no", id);
 
   if (res.data) {
-    return res.data.map((d) => d.postId) as string[];
+    return res.data.map((postId) => postId.postId) as string[];
   } else {
     return [];
   }
@@ -59,6 +59,9 @@ export const getMyLikePostIds = async (id: string) => {
 // 게시물 스크랩 취소하기
 const deleteMyLikePost = async (userId: string, postId: string) => {
   const { data } = await browserClient.from("like").select("id").eq("mem_no", userId).eq("postId", postId);
-  const deleteLikeId = data && data[0].id;
-  await browserClient.from("like").delete().eq("id", deleteLikeId);
+  if (data) {
+    const deleteLikeId: string = data[0].id;
+
+    await browserClient.from("like").delete().eq("id", deleteLikeId);
+  }
 };
