@@ -21,7 +21,7 @@ const MyPageHeader = ({ date }: { date: number[] }) => {
   }
 
   return (
-    <div className="bg-black w-full p-10">
+    <div className="bg-subOrange w-full p-10 mt-10 rounded-lg">
       <p className="text-5xl text-white mb-8">{data}`s Page</p>
       {!!userId ? <MyOneYearAgo userId={userId} date={date} /> : <></>}
     </div>

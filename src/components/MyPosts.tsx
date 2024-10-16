@@ -21,13 +21,15 @@ const MyPosts = ({ date, userId }: { date: number[]; userId: string }) => {
   return (
     <>
       {posts.length > 0 ? (
-        <div className="grid grid-cols-4 gap-6 justify-center">
-          {posts.map((myPost) => {
-            return <ListCard key={myPost.post_id} post={myPost} />;
-          })}
+        <div className="bg-white rounded-lg shadow-xl max-w-[1280px] mx-auto mb-20 px-6">
+          <div className="grid grid-cols-4 gap-4 py-6 min-h-[400px]">
+            {posts.map((myPost) => {
+              return <ListCard key={myPost.post_id} post={myPost} />;
+            })}
+          </div>
         </div>
       ) : (
-        <p className="text-2xl">작성한 글이 없습니다</p>
+        <p className="text-2xl text-center">작성한 글이 없습니다</p>
       )}
     </>
   );

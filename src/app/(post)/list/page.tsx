@@ -142,7 +142,7 @@ const Page: React.FC = () => {
           <div className="flex text-[20px] font-bold mb-4">오늘의 OOTW 둘러보기</div>
         </div>
         <div className="bg-white rounded-lg shadow-xl max-w-[1280px] mx-auto mb-20">
-          <div className="flex flex-wrap gap-4 py-6 pl-6 min-h-[400px]">
+          <div className="flex flex-wrap gap-4 py-10 pl-10 min-h-[400px]">
             {data.length > 0 ? (
               data.map((post) => {
                 return (
