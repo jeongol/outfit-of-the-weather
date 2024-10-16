@@ -1,3 +1,4 @@
+import { formatDateTime } from "@/components/DateAndTime";
 import { ImageType, WriteTypes } from "@/types/write";
 import { addComment, deleteComment, deletePost, updatePost, uploadImage } from "@/utils/postApi";
 import { UserData } from "@/zustand/store";
@@ -31,7 +32,7 @@ export const useUpdatePost = (postId: string) => {
       }
       return updatePost(postId, {
         ...formData,
-        post_date: new Date(),
+        post_date: formatDateTime(new Date()),
         mem_no: user.userId
       });
     },
@@ -56,7 +57,7 @@ export const useAddComment = (postId: string, userId: string) => {
         post_id: postId,
         comment_content: comment.comment_content,
         mem_no: userId,
-        comment_date: new Date().toISOString()
+        comment_date: formatDateTime(new Date())
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comment", postId] });

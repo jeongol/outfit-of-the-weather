@@ -10,7 +10,7 @@ import { useWriteStore } from "@/zustand/writeStore";
 import { post } from "@/types/post";
 import { useDeletePost } from "@/hooks/useMutates";
 import DateAndTime from "@/components/DateAndTime";
-
+import { toast } from "react-toastify";
 type Props = {
   data: post;
   nickname: string;
@@ -28,7 +28,7 @@ const PostDetail = ({ data, nickname }: Props) => {
     if (user.userId === data.mem_no) {
       setModalOpen(true);
     } else {
-      alert("작성자만 삭제 가능합니다.");
+      toast.warn("작성자만 삭제 가능합니다.");
     }
   };
 
@@ -44,7 +44,7 @@ const PostDetail = ({ data, nickname }: Props) => {
       resetForm();
       router.replace(`/list/${data.post_id}/update`);
     } else {
-      alert("작성자만 수정 가능합니다.");
+      toast.warn("작성자만 수정 가능합니다.");
     }
   };
 
@@ -52,7 +52,7 @@ const PostDetail = ({ data, nickname }: Props) => {
     <div className="m-auto">
       <Suspense fallback={<div className="text-gray-500">...데이터 읽어 오는 중</div>}>
         <div className="flex flex-row justify-between">
-          <DateAndTime createDate={data.post_date} />
+          <DateAndTime createDate={data.post_date} newDate={data.post_newdate} />
           <div className="flex flex-row w-300 h-300 items-center">
             <div className="flex flex-row items-center">
               <div className="w-[30px] h-[30px] bg-gray-300 rounded-full flex items-center justify-center">

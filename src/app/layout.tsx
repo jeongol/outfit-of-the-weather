@@ -33,14 +33,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} w-full flex flex-col items-center bg-mainYellow`}>
         <Header />
         <div>
-          <ToastContainer
-            position="bottom-right"
-            autoClose={3000}
-            closeOnClick
-            pauseOnHover
-            draggable
-            theme="light" 
-          />
+          <ToastContainer position="bottom-right" autoClose={3000} closeOnClick pauseOnHover draggable theme="light" />
           <Providers>{children}</Providers>
         </div>
       </body>
