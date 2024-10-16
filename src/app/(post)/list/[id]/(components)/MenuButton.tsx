@@ -8,9 +8,9 @@ interface MenuButtonProps {
 
 const MenuButton = ({ onEdit, onDelete, isMenuOpen }: MenuButtonProps) => {
   return (
-    <div className="relative">
+    <div className="relative mt-1">
       {isMenuOpen && (
-        <div className="absolute w-[100px] bg-white rounded-lg z-10">
+        <div className="absolute w-[70px] bg-white rounded-lg z-10">
           <button
             className="w-full px-4 py-2 bg-gray-500 text-white rounded-t hover:bg-gray-600 transition"
             onClick={onEdit}
