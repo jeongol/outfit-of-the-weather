@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
 
   const isLogin = !!user;
 
-  if ((!isLogin && request.nextUrl.pathname.startsWith("/mypage")) || request.nextUrl.pathname.startsWith("/write")) {
+  if (!isLogin && (request.nextUrl.pathname.startsWith("/mypage") || request.nextUrl.pathname.startsWith("/write"))) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
