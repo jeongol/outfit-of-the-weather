@@ -14,8 +14,7 @@ const Page = () => {
   // zustand 상태
   const { user } = useUserStore();
   const { weather, loading, setLocation } = useWeatherStore();
-  const { formData, imageState, categoryInput, setFormData, setImageState, setCategoryInput, resetForm } =
-    useWriteStore();
+  const { formData, imageState, categoryInput, setFormData, setImageState, setCategoryInput } = useWriteStore();
 
   const router = useRouter();
 
