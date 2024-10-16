@@ -54,7 +54,7 @@ export const useAddComment = (postId: string, userId: string) => {
         post_id: postId,
         comment_content: comment.comment_content,
         mem_no: userId,
-        comment_date: new Date()
+        comment_date: new Date().toISOString()
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comment", postId] });

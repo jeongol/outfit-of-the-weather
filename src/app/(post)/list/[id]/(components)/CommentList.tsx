@@ -21,10 +21,13 @@ const CommentList = ({ id }: Props) => {
   if (isCommentsLoading) return <>로딩중...</>;
   if (isError) return <>댓글을 불러오는 중 오류가 발생했습니다.</>;
 
+  const sortedComments = comments?.sort(
+    (a, b) => new Date(b.comment_date).getTime() - new Date(a.comment_date).getTime()
+  );
   return (
     <ul className="mt-10">
-      {comments && comments.length > 0 ? (
-        comments.map((comment) => <CommentItem key={comment.comment_id} comment={comment} />)
+      {sortedComments && sortedComments.length > 0 ? (
+        sortedComments.map((comment) => <CommentItem key={comment.comment_id} comment={comment} />)
       ) : (
         <li>댓글이 없습니다.</li>
       )}

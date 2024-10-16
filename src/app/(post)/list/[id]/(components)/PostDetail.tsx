@@ -9,6 +9,7 @@ import MenuButton from "./MenuButton";
 import { useWriteStore } from "@/zustand/writeStore";
 import { post } from "@/types/post";
 import { useDeletePost } from "@/hooks/useMutates";
+import DateAndTime from "@/components/DateAndTime";
 
 type Props = {
   data: post;
@@ -51,7 +52,7 @@ const PostDetail = ({ data, nickname }: Props) => {
     <div className="m-auto">
       <Suspense fallback={<div className="text-gray-500">...데이터 읽어 오는 중</div>}>
         <div className="flex flex-row justify-between">
-          <p className="text-gray-500 text-sm mb-2">{new Date(data.post_date).toLocaleDateString()}</p>
+          <DateAndTime createDate={data.post_date} />
           <div className="flex flex-row w-300 h-300 items-center">
             <div className="flex flex-row items-center">
               <div className="w-[30px] h-[30px] bg-gray-300 rounded-full flex items-center justify-center">
