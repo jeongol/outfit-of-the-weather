@@ -39,8 +39,12 @@ const PostDetail = ({ data, nickname }: Props) => {
   };
 
   const handleEditPost = () => {
-    resetForm();
-    router.replace(`/list/${data.post_id}/update`);
+    if (user.userId === data.mem_no) {
+      resetForm();
+      router.replace(`/list/${data.post_id}/update`);
+    } else {
+      alert("작성자만 수정 가능합니다.");
+    }
   };
 
   return (
