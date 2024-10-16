@@ -40,8 +40,8 @@ const LoginPage = () => {
     <div className="flex flex-col gap-10 w-full py-28 justify-center items-center text-center">
       <h1 className="text-4xl font-bold">로그인</h1>
 
-      <form className="flex flex-col p-10 gap-10 bg-slate-400 rounded-3xl" onSubmit={handleLogin}>
-        <div>
+      <form className="flex flex-col p-10 bg-white rounded-xl" onSubmit={handleLogin}>
+        <div className="flex flex-col mb-4">
           <label>
             <input
               type="email"
@@ -53,7 +53,7 @@ const LoginPage = () => {
             />
           </label>
         </div>
-        <div>
+        <div className="flex flex-col mb-2">
           <label>
             <input
               type="password"
@@ -65,13 +65,13 @@ const LoginPage = () => {
             />
           </label>
         </div>
-        <button type="submit" className="bg-orange-200 p-2 rounded-2xl">
+        <button type="submit" className="bg-blue-500 p-3 pl-5 rounded-xl mt-5">
           로그인
         </button>
       </form>
       <div>
         <div>아직 회원이 아니신가요?</div>
-        <Link className="text-red-500 font-bold" href={"/signup"}>
+        <Link className="text-red-200 font-semibold" href={"/signup"}>
           회원가입 하러가기 →
         </Link>
       </div>

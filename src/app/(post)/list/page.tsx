@@ -2,8 +2,8 @@
 
 import ListCard from "@/components/ListCard";
 import { post } from "@/types/post";
+import { useWeatherStore } from "@/zustand/weatherStore";
 import { createClient } from "@supabase/supabase-js";
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -34,6 +34,30 @@ const Page: React.FC = () => {
   const [value, setValue] = useState<number>(0);
   const [data, setData] = useState<post[]>([]);
   const [selectedWeather, setSelectedWeather] = useState<string[]>([]);
+
+  const { weather, setLocation } = useWeatherStore();
+
+  useEffect(() => {
+    const soeul = { lat: 37.5665, lon: 126.978 };
+
+    const geoloat = (position: GeolocationPosition) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      setLocation(lat, lon);
+    };
+
+    const headleError = () => {
+      setLocation(soeul.lat, soeul.lon);
+    };
+
+    navigator.geolocation.getCurrentPosition(geoloat, headleError);
+  }, [setLocation]);
+
+  useEffect(() => {
+    if (weather.main.temp) {
+      setValue(weather.main.temp);
+    }
+  }, [weather]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(e.target.value));
@@ -68,14 +92,6 @@ const Page: React.FC = () => {
 
   return (
     <>
-      <div className="my-10">
-        <Link
-          href={"/write"}
-          className="bg-white text-[20px] text-black p-5 w-[400px] h-[100px] rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-gray-100 flex items-center justify-center"
-        >
-          나의 OOTW 올리기
-        </Link>
-      </div>
       <div className="w-[1280px] border pt-6 flex flex-col justify-center items-center">
         <div className="flex flex-col w-[800px] items-center py-4">
           <h2 className="text-[25px] font-bold mb-2">온도</h2>
@@ -98,6 +114,7 @@ const Page: React.FC = () => {
               onChange={handleChange}
               className="h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-slider  w-[350px]"
             />
+            <p>날씨: {weather.weather[0].main}</p>
           </div>
         </div>
 
