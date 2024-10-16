@@ -9,6 +9,7 @@ import Category from "@/app/(post)/write/(components)/Category";
 import { getPost } from "@/utils/postApi";
 import { useUpdatePost } from "@/hooks/useMutates";
 import { post } from "@/types/post";
+import FormLayout from "@/app/(post)/write/(components)/WirteForm";
 
 interface Props {
   params: {
@@ -48,11 +49,10 @@ const Page = ({ params }: Props) => {
   };
 
   return (
-    <div className="m-0">
-      <h1>글 작성</h1>
-      <form className="flex flex-row" onSubmit={handleUpdatePost}>
-        <ImageUploader imageState={imageState} setImageState={setImageState} setFormData={setFormData} />
-        <div>
+    <FormLayout onSubmit={handleUpdatePost}>
+      <ImageUploader imageState={imageState} setImageState={setImageState} setFormData={setFormData} />
+      <div>
+        <div className="flex flex-col gap-3 p-3">
           <InputField
             type="input"
             label="제목"
@@ -61,14 +61,14 @@ const Page = ({ params }: Props) => {
             onChange={(e) => fieldChangeHandler(e, setFormData)}
             isDisabled={false}
           />
-          <div className="flex flex-row">
+          <div className="flex flex-row gap-5">
             <InputField
               type="number"
               label="온도"
               name="temperature"
               value={formData.temperature}
               onChange={(e) => fieldChangeHandler(e, setFormData)}
-              isDisabled={true}
+              isDisabled={true} // 비활성화 상태 유지
             />
             <InputField
               type="select"
@@ -76,7 +76,7 @@ const Page = ({ params }: Props) => {
               name="post_weather"
               value={formData.post_weather}
               onChange={(e) => fieldChangeHandler(e, setFormData)}
-              isDisabled={true}
+              isDisabled={true} // 비활성화 상태 유지
             />
           </div>
           <div className="flex flex-col">
@@ -96,9 +96,13 @@ const Page = ({ params }: Props) => {
             setFormData={setFormData}
           />
         </div>
-        <button type="submit">작성하기</button>
-      </form>
-    </div>
+        <div className="flex flex-row-reverse p-3">
+          <button type="submit" className="border p-2 bg-blue-500 text-white hover:bg-blue-600 rounded">
+            업데이트하기
+          </button>
+        </div>
+      </div>
+    </FormLayout>
   );
 };
 
