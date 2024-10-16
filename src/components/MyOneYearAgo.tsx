@@ -12,13 +12,16 @@ const MyOneYearAgo = ({ date, userId }: { date: number[]; userId: string }) => {
     queryFn: async () => {
       const response = await getMyPosts(userId);
       const oneAgo = response.filter((post) => post.post_date.includes(`${date[0] - 1}-${date[1]}`));
-      return oneAgo.slice(3) || [];
-    }
+      return oneAgo.slice(0, 2) || [];
+    },
+    enabled: !!userId,
+    staleTime: 0
   });
   if (isLoading) {
     return <div>Loading......</div>;
   }
 
+  console.log(data);
   return (
     <div>
       <p className="text-white text-2xl mb-5">1년 전 이달 게시글</p>
