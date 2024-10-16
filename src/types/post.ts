@@ -1,4 +1,5 @@
 export interface post {
+  created_at: string;
   post_id: string;
   mem_no: string;
   post_title: string;
