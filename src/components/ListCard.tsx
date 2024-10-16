@@ -12,7 +12,7 @@ const ListCard = ({ post }: { post: post }) => {
       <div className="flex text-black">
         <Link
           href={`/list/${post.post_id}`}
-          className="relative w-[250px] h-[400px] bg-white rounded-lg overflow-hidden justify-center items-center shadow-xl transition-transform duration-300 hover:scale-105"
+          className="relative w-[280px] h-[400px] bg-white rounded-lg overflow-hidden justify-center items-center shadow-xl transition-transform duration-300 hover:scale-105"
         >
           <div className="relative w-full h-[330px]">
             <Image src={post.post_img} layout="fill" objectFit="cover" alt={post.post_title} />
