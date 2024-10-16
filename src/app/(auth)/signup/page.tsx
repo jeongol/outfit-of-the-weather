@@ -1,5 +1,6 @@
 "use client"; // 클라이언트 컴포넌트로 설정
 import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SignupPage = () => {
@@ -7,6 +8,7 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [nickname, setNickname] = useState("");
+  const router = useRouter();
 
   const supabase = createClient();
 
@@ -31,62 +33,66 @@ const SignupPage = () => {
       console.error("Error:", error.message);
     } else {
       console.log("회원가입 성공!", data);
+      alert("회원가입 성공!");
+      router.push("/login");
     }
   };
 
   return (
-    <>
-      <h1>회원가입</h1>
-      <form onSubmit={handleSignUp}>
+    <div className="flex flex-col gap-10 w-full py-28 justify-center items-center">
+      <h1 className="text-4xl font-bold">회원가입</h1>
+      <form className="flex flex-col p-10 gap-10 bg-slate-400 rounded-3xl" onSubmit={handleSignUp}>
         <div>
           <label>
-            이메일:
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="text-black"
+              className="signInput"
+              placeholder="이메일을 입력하세요"
             />
           </label>
         </div>
-        <div>
+        <div className="flex flex-col gap-5">
           <label>
-            비밀번호:
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               // required
-              className="text-black"
+              className="signInput"
+              placeholder="비밀번호를 입력하세요"
             />
           </label>
           <label>
-            비밀번호 확인:
             <input
               type="password"
               value={passwordCheck}
               onChange={(e) => setPasswordCheck(e.target.value)}
               // required
-              className="text-black"
+              className="signInput"
+              placeholder="비밀번호 확인"
             />
           </label>
         </div>
         <div>
           <label>
-            닉네임:
             <input
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               // required
-              className="text-black"
+              className="signInput"
+              placeholder="닉네임을 입력하세요"
             />
           </label>
         </div>
-        <button type="submit">회원가입</button>
+        <button type="submit" className="bg-orange-200 p-2 rounded-2xl">
+          회원가입
+        </button>
       </form>
-    </>
+    </div>
   );
 };
 

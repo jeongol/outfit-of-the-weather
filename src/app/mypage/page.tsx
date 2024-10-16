@@ -11,8 +11,8 @@ const Page = () => {
 
   const userId = useUserStore((state) => state.user.userId);
 
-  const selectCSS = "text-6xl";
-  const unSelectCSS = "text-5xl text-gray-300";
+  const selectCSS = "text-5xl";
+  const unSelectCSS = "text-4xl text-gray-300";
   return (
     <>
       <MyPageHeader date={date} />
@@ -28,7 +28,8 @@ const Page = () => {
           </div>
           <div className="flex flex-row gap-10 mx-10 justify-end">
             <select
-              name="년도"
+              className="text-2xl"
+              name="년"
               onChange={(e) => setDate((recent) => [Number(e.target.value), recent[1]])}
               defaultValue={date[0]}
             >
@@ -39,6 +40,7 @@ const Page = () => {
               ))}
             </select>
             <select
+              className="text-2xl"
               name="월"
               onChange={(e) => setDate((recent) => [recent[0], Number(e.target.value)])}
               defaultValue={date[1]}
