@@ -36,6 +36,7 @@ export default function Mainpages() {
   if (!posts) {
     return <div>데이터 없음</div>;
   }
+  // console.log(weather.weather[0].icon);
   return (
     <div>
       <div>
