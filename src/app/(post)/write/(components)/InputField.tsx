@@ -50,7 +50,7 @@ const InputField = ({ type, label, name, value, onChange, isDisabled }: Props) =
   ) : (
     <div className="flex flex-col">
       <span>{label}</span>
-      <textarea className="border" name={name} value={value} onChange={onChange} />
+      <textarea className="border h-[230px]" name={name} value={value} onChange={onChange} />
     </div>
   );
 };
