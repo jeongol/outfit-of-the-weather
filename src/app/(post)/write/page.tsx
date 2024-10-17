@@ -109,7 +109,7 @@ const Page = () => {
         <div className="flex flex-row-reverse p-3">
           <button
             type="submit"
-            className="border p-2 bg-blue-500 text-white hover:bg-blue-600 rounded"
+            className="border p-2 px-10 bg-mainYellow text-mainText hover:bg-subOrange hover:text-white rounded"
             disabled={isButtonDisabled}
           >
             작성하기

@@ -1,6 +1,7 @@
 "use client";
 import { signOut } from "@/utils/supabase/supabaseApi";
 import { useUserStore } from "@/zustand/store";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -27,7 +28,10 @@ const Header = () => {
     <div className="w-full h-25 border-b-2 border-b-mainGreen bg-mainGreen shadow-lg">
       <div className="flex flex-row w-[1280px] h-25 py-5 text-mainText mx-auto">
         <div className="flex items-center justify-center gap-10">
-          <div>Outfit Of The Weather</div>
+          {/* <div>Outfit Of The Weather</div> */}
+          <Link href={"/"}>
+            <Image src="/OOTW_logo.png" alt="Logo" width={120} height={100} />
+          </Link>
           <Link className={nowPage === "/" ? selectPage : unSelectPage} href={"/"}>
             홈
           </Link>
@@ -36,7 +40,6 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* 오른쪽 정렬 그룹 */}
         <div className="flex flex-row gap-10 items-center ml-auto">
           {user.isAuthenticated ? (
             <>

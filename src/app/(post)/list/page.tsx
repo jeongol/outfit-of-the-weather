@@ -152,7 +152,7 @@ const Page: React.FC = () => {
                 );
               })
             ) : (
-              <p className="text-[16px]">게시글이 없습니다</p>
+              <p className="text-[20px]">게시글이 없습니다...</p>
             )}
           </div>
         </div>
