@@ -6,7 +6,8 @@ import { useUserStore } from "@/zustand/store";
 
 const ListCard = ({ post }: { post: post }) => {
   const userId = useUserStore((state) => state.user.userId);
-
+  const post_title = post.post_title.length > 14 ? post.post_title.substring(0, 14) + "..." : post.post_title;
+  
   return (
     <>
       <div className="flex text-black">
@@ -23,7 +24,7 @@ const ListCard = ({ post }: { post: post }) => {
           </div>
           <div className="p-3 pl-5">
             <div className="text-[14px] text-gray-500">{post.post_date.slice(0, 10)}</div>
-            <div className="text-[16px] font-bold">{post.post_title}</div>
+            <div className="text-[16px] font-bold">{post_title}</div>
           </div>
           {userId ? (
             <div className="absolute bottom-4 right-3">
