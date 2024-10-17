@@ -25,7 +25,6 @@ const Page = ({ params }: Props) => {
   useEffect(() => {
     const handleGetPost = async () => {
       const postData: post | null = await getPost(postId);
-      console.log(postData);
 
       setFormData({
         post_title: postData?.post_title,
