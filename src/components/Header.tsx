@@ -14,6 +14,7 @@ const Header = () => {
     if (user.isAuthenticated) {
       await signOut();
       logoutUser();
+      router.refresh();
       if (nowPage === "/mypage") {
         router.replace("/login");
       }
