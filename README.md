@@ -98,7 +98,8 @@
   );
 })}
 //코드에서 useCommentNickname 훅이 map 함수 내부에서 호출되고 있어서
-//렌더링마다 Hooks 호출 순서가 달라지면서 에러가 발생```
+//렌더링마다 Hooks 호출 순서가 달라지면서 에러가 발생
+```
 
 -    문제 해결 : **Hooks**를 반복문 내에서 호출하지 않도록 컴포넌트를 재구성 하였고, **map** 함수 내에서 훅을 호출하는 대신에 별도의 컴포넌트로 분리하여 최상위 레벨에서 **Hooks**를 호출할 수 있도록 수정했음
    -- 1.  컴포넌트 생성: **CommentItem** 컴포넌트로 분리하여 각 댓글을 개별적으로 처리하고 최상위 레벨에서 **useCommentNickname** 훅을 호출하도록 변경
@@ -119,7 +120,8 @@ const CommentItem = ({ comment }: { comment: CommentTypes }) => {
       {findAuth && <button className="border-2 p-1">삭제</button>}
     </li>
   );
-}```    
+}
+```    
 
 ## 팀원 소감
 |이름|소감|
