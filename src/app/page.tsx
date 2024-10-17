@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useWeatherStore } from "@/zustand/weatherStore";
 import browserClient from "@/utils/supabase/client";
 import { post } from "@/types/post";
@@ -14,6 +14,8 @@ export default function Mainpages() {
   const [posts, setPosts] = useState<post[] | null>([]);
   const [loadingWeather, setLoadingWeather] = useState(true);
   const { user } = useUserStore();
+
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const soeul = { lat: 37.5665, lon: 126.978 };
@@ -35,6 +37,18 @@ export default function Mainpages() {
       const data = response.data;
       setPosts(data);
     };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (scrollRef.current) {
+        e.preventDefault();
+        scrollRef.current.scrollLeft += e.deltaY;
+      }
+    };
+
+    const current = scrollRef.current;
+    if (current) {
+      current.addEventListener("wheel", handleWheel);
+    }
 
     fetchPosts();
     navigator.geolocation.getCurrentPosition(geoloat, headleError);
@@ -97,7 +111,7 @@ export default function Mainpages() {
           <Link href={"/list"}> 바로가기 &gt; </Link>
         </div>
         <div className="bg-white rounded-lg shadow-xl mb-20">
-          <div className="w-[1280px] flex flex-row gap-8 overflow-x-scroll py-10 pl-10 scrollbar-default">
+          <div ref={scrollRef} className="w-[1280px] flex flex-row gap-8 overflow-x-scroll py-10 pl-10 pr-10">
             {filteredData.length > 0 ? (
               filteredData.map((post) => <ListCard key={post.post_id} post={post} />)
             ) : (
