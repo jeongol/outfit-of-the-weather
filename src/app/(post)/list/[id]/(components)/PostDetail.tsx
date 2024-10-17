@@ -64,12 +64,12 @@ const PostDetail = ({ data, nickname }: Props) => {
             {/* 버튼 메뉴 및 모달  */}
             <div className="flex justify-end">
               <div className="relative">
-                <button
-                  className="text-gray-600 bg-slate-200 px-2 py-1 text-sm rounded hover:text-gray-800 hover:bg-slate-300"
+                <div
+                  className="flex items-center text-gray-600 px-2 py-1 text-sm rounded hover:bg-slate-100 hover:text-gray-800 cursor-pointer"
                   onClick={() => setMenuOpen(!isMenuOpen)}
                 >
-                  설정
-                </button>
+                  <Image src="/images/more.png" alt="ads" width={20} height={20} />
+                </div>
 
                 <MenuButton onEdit={handleEditPost} onDelete={handleOpenMenu} isMenuOpen={isMenuOpen} />
                 {/* 모달 */}
