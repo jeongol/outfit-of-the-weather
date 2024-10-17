@@ -11,7 +11,7 @@ const MyOneYearAgo = ({ date, userId }: { date: number[]; userId: string }) => {
     queryFn: async () => {
       const response = await getMyPosts(userId);
       const oneAgo = response.filter((post) => post.post_date.includes(`${date[0] - 1}-${date[1]}`));
-      return oneAgo.slice(0, 2) || [];
+      return oneAgo.slice(0, 4) || [];
     },
     enabled: !!userId,
     staleTime: 0

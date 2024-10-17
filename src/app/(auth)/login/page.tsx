@@ -30,7 +30,7 @@ const LoginPage = () => {
 
       console.log("로그인이 완료되었습니다");
       toast.success("로그인 성공");
-      router.replace("/");
+      router.refresh();
     } else {
       console.error("Email이 존재하지 않습니다.");
       toast.error("로그인 실패");
