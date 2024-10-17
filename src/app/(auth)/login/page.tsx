@@ -19,7 +19,6 @@ const LoginPage = () => {
       password: password
     });
 
-    console.log(data);
     if (data.user && data.user.email) {
       useUserStore.getState().loginUser({
         email: data.user.email,
@@ -28,11 +27,9 @@ const LoginPage = () => {
         isAuthenticated: true
       });
 
-      console.log("로그인이 완료되었습니다");
       toast.success("로그인 성공");
       router.refresh();
     } else {
-      console.error("Email이 존재하지 않습니다.");
       toast.error("로그인 실패");
     }
   };
