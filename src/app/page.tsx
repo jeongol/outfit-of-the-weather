@@ -38,7 +38,6 @@ export default function Mainpages() {
     navigator.geolocation.getCurrentPosition(geoloat, headleError);
   }, [setLocation]);
 
-
   if (!posts) {
     return <div>데이터 없음</div>;
   }
@@ -74,7 +73,6 @@ export default function Mainpages() {
                 height={100}
               />
             </div>
-
             <div className="ml-20 flex flex-col justify-center items-center my-10">
               <h2 className="text-[100px] font-bold">{weather.main.temp}°</h2>
               <p className="text-[20px] font-bold">{weather.weather[0].main}</p>
