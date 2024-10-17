@@ -19,9 +19,6 @@ const CommentForm = ({ id }: Props) => {
     }
   };
 
-  console.log(user);
-  console.log(id);
-  console.log(comment);
   return (
     <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-2">
       <textarea

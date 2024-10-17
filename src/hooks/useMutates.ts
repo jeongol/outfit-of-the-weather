@@ -42,7 +42,6 @@ export const useUpdatePost = (postId: string) => {
       router.replace(`/list/${postId}`);
     },
     onError: (error) => {
-      console.log("글 수정 에러:", error);
       toast.warn(error.message);
     }
   });
@@ -97,8 +96,7 @@ export const useDeleteComment = () => {
       queryClient.invalidateQueries({ queryKey: ["comment"] });
       toast.success("댓글이 삭제 되었습니다.");
     },
-    onError: (error) => {
-      console.log("댓글 삭제 중 오류 발생:", error);
+    onError: () => {
       toast.error("댓글 삭제 중 에러가 발생 했습니다.");
     }
   });

@@ -60,7 +60,7 @@ const SignupPage = () => {
 
     // 모든 필드가 유효한 경우에만 진행
     if (!hasError) {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -71,7 +71,6 @@ const SignupPage = () => {
       });
 
       if (error) {
-        console.error("회원가입 오류 => ", error.message);
         if (error.message.includes("invalid email")) {
           setErrors((prev) => ({ ...prev, email: "유효하지 않은 이메일 주소입니다." }));
         } else if (error.message.includes("already registered")) {
@@ -80,7 +79,6 @@ const SignupPage = () => {
           toast.error("회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.");
         }
       } else {
-        console.log("회원가입 성공!", data);
         toast.success("회원가입 성공!");
         await supabase.auth.signOut();
         router.push("/login");

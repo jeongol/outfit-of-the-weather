@@ -60,7 +60,6 @@ export const updatePost = async (id: string, formData: Omit<WriteTypes, "fileInp
 
 export const deletePost = async (id: string) => {
   const { data, error } = await browserClient.from("post").delete().eq("post_id", id).select();
-  console.log(data);
   if (error) throw error;
   return data;
 };
